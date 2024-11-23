@@ -46,10 +46,10 @@
                                       <td>
                                           <!-- Editable Status -->
                                           <select class="form-select form-select-sm update-status" data-id="{{ $booking->id }}">
-                                              <option value="Pending" {{ $booking->booking_status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                                              <option value="Confirmed" {{ $booking->booking_status == 'Confirmed' ? 'selected' : '' }}>Confirmed</option>
-                                              <option value="Confirmed" {{ $booking->booking_status == 'Completed' ? 'selected' : '' }}>Completed</option>
-                                              <option value="Cancelled" {{ $booking->booking_status == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
+                                              <option value="Pending" class="badge bg-warning" {{ $booking->booking_status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                              <option value="Confirmed" class="badge bg-primary" {{$booking->booking_status == 'Confirmed' ? 'selected' : '' }}>Confirmed</option>
+                                              <option value="Confirmed"  class="badge bg-success"{{ $booking->booking_status == 'Completed' ? 'selected' : '' }}>Completed</option>
+                                              <option value="Cancelled"class = "badge bg-danger"{{ $booking->booking_status == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
                                           </select>
                                       </td>
                                   </tr>

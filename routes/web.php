@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,10 +30,9 @@ use App\Http\Controllers\CategoryController;
 
   
   Route::middleware(['auth' , 'role:admin'])->group(function () {
-    Route::get('/index', function(){
-       return view('dashboard.index');
-    })->name('dashboard.index');
+    Route::get('/index', [IndexController::class , 'index'])->name('dashboard.index');
     // users routes
+    
 Route::get('/users', [UserController::class, 'index'])->name('user.index');
 Route::get('/create' , [UserController::class , 'create'])->name('user.create');
 Route::post('/user', [UserController::class, 'store'])->name('user.store');
