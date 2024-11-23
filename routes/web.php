@@ -26,14 +26,11 @@ use App\Http\Controllers\CategoryController;
   Route::get('/' , function(){
     return view('welcome');
   });
-  Route::middleware(['auth'])->group(function () {
+
+  
+  Route::middleware(['auth' , 'role:admin'])->group(function () {
     Route::get('/index', function(){
-        if (Auth::user()->role == 'admin') {
-            return view('dashboard.index');  // Admin dashboard
-        }
-        else{
-            return redirect()->route('login');
-        }
+       return view('dashboard.index');
     })->name('dashboard.index');
     // users routes
 Route::get('/users', [UserController::class, 'index'])->name('user.index');
