@@ -17,10 +17,12 @@ class UserController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $users = User::withTrashed()->get();;
-        return view('dashboard.user' , compact('users'));
-    }
+{
+    // Get only users with the 'User' role, including soft-deleted ones
+    $users = User::withTrashed()->where('role', 'user')->get();
+
+    return view('dashboard.user', compact('users'));
+}
 
     /**
      * Show the form for creating a new resource.

@@ -79,7 +79,7 @@
             
                 <!-- Submit Button -->
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary" id="submitBtn">Update Category</button>
+                    <button type="submit" class="btn" id="submitBtn" style="color: #fff;background:#d97706">Update Category</button>
                 </div>
             </form>
             <!-- End Form -->

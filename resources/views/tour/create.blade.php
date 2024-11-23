@@ -111,11 +111,11 @@
                         <input type="text" name="itinerary[0][meal_plan]" class="form-control">
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary mt-3" id="add-itinerary">Add Another Day</button>
+                <button type="button" class="btn mt-3" id="add-itinerary" style="color: #fff;background:#d97706">Add Another Day</button>
               </div>
 
             <div class="text-center">
-              <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
+              <button type="submit" class="btn" id="submitBtn" style="color: #fff;background:#d97706">Submit</button>
             </div>
             </form>
           </div>

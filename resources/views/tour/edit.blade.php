@@ -25,7 +25,7 @@
                 @foreach ($tour->images as $image)
     <div class="col-md-2" id="image-card-{{ $image->id }}">
         <img src="{{ asset('storage/' . $image->file_name) }}" alt="Tour Image"
-            style="width: 100px; height: 100px; border-radius: 50%;">
+            style="width: 100px; height: 100px; border-radius: 10%;">
 
         <!-- Image Deletion Form (hidden, we will submit it via AJAX) -->
         <form id="deleteForm-{{ $image->id }}" action="{{ route('image.delete', ['tour' => $tour->id, 'imageId' => $image->id]) }}" method="POST" style="display: none;">
@@ -33,7 +33,7 @@
             @method('DELETE')
         </form>
 
-        <button type="button" class="btn btn-danger btn-sm m-3" onclick="confirmDeleteImage({{ $image->id }})">
+        <button type="button" class="btn btn-sm m-3" style="color: #fff;background:#d97706" onclick="confirmDeleteImage({{ $image->id }})">
             Delete
         </button>
     </div>
@@ -155,12 +155,12 @@
                   @endforeach
                 </div>
 
-                <button type="button" class="btn btn-primary mt-3" id="add-itinerary">Add Another Day</button>
+                <button type="button" class="btn mt-3" id="add-itinerary" style="color: #fff;background:#d97706">Add Another Day</button>
               </div>
 
 
               <div class="text-center">
-                <button type="submit" class="btn btn-primary" id="submitBtn">Update Tour</button>
+                <button type="submit" class="btn" id="submitBtn" style="color: #fff;background:#d97706">Update Tour</button>
               </div>
             </form>
           </div>

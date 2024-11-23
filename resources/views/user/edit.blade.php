@@ -105,7 +105,7 @@
               </div>
 
               <div class="text-center">
-                <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
+                <button type="submit" class="btn" id="submitBtn" style="color: #fff;background:#d97706">Update</button>
               </div>
             </form>
 

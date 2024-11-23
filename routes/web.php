@@ -66,7 +66,9 @@ Route::post('tour/{tour}/restore', [TourController::class, 'restore'])->name('to
 
 //bookings
 Route::get('/bookings', [BookingController::class, 'index'])->name('booking.index');
+// In web.php or api.php
 Route::patch('/booking/{id}/status', [BookingController::class, 'updateStatus'])->name('booking.updateStatus');
+
 });
 
 

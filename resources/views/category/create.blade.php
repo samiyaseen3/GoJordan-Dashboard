@@ -64,7 +64,7 @@
           
               <!-- Submit Button -->
               <div class="text-center">
-                  <button type="submit" class="btn btn-primary" id="submitBtn">Add Category</button>
+                  <button type="submit" class="btn" id="submitBtn" style="color: #fff;background:#d97706">Add Category</button>
               </div>
           </form>
           

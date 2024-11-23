@@ -23,39 +23,40 @@
                     <div class="card-body">
                         <h5 class="card-title">Booking Table</h5>
                         <table class="table datatable mt-3">
-                          <thead>
-                              <tr>
-                                  <th>#</th>
-                                  <th>User</th>
-                                  <th>Tour</th>
-                                  <th>Booking Date</th>
-                                  <th>Number of Guests</th>
-                                  <th>Total Price</th>
-                                  <th>Status</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              @foreach ($bookings as $booking)
-                                  <tr>
-                                      <td>{{ $booking->id }}</td>
-                                      <td>{{ $booking->user->name }}</td>
-                                      <td>{{ $booking->tour ? $booking->tour->title : 'N/A' }}</td>
-                                      <td>{{ $booking->booking_date }}</td>
-                                      <td>{{ $booking->number_of_guests }}</td>
-                                      <td>${{ $booking->tour ? $booking->tour->price * $booking->number_of_guests : '0.00' }}</td>
-                                      <td>
-                                          <!-- Editable Status -->
-                                          <select class="form-select form-select-sm update-status" data-id="{{ $booking->id }}">
-                                              <option value="Pending" class="badge bg-warning" {{ $booking->booking_status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                                              <option value="Confirmed" class="badge bg-primary" {{$booking->booking_status == 'Confirmed' ? 'selected' : '' }}>Confirmed</option>
-                                              <option value="Confirmed"  class="badge bg-success"{{ $booking->booking_status == 'Completed' ? 'selected' : '' }}>Completed</option>
-                                              <option value="Cancelled"class = "badge bg-danger"{{ $booking->booking_status == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
-                                          </select>
-                                      </td>
-                                  </tr>
-                              @endforeach
-                          </tbody>
-                      </table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>User</th>
+                                    <th>Tour</th>
+                                    <th>Booking Date</th>
+                                    <th>Number of Guests</th>
+                                    <th>Total Price</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($bookings as $booking)
+                                    <tr>
+                                        <td>{{ $booking->id }}</td>
+                                        <td>{{ $booking->user->name }}</td>
+                                        <td>{{ $booking->tour ? $booking->tour->title : 'N/A' }}</td>
+                                        <td>{{ $booking->booking_date }}</td>
+                                        <td>{{ $booking->number_of_guests }}</td>
+                                        <td>${{ $booking->tour ? $booking->tour->price * $booking->number_of_guests : '0.00' }}</td>
+                                        <td>
+                                            <!-- Editable Status -->
+                                            <select class="form-select form-select-sm update-status" data-id="{{ $booking->id }}">
+                                                <option value="Pending" {{ $booking->booking_status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                                <option value="Confirmed" {{ $booking->booking_status == 'Confirmed' ? 'selected' : '' }}>Confirmed</option>
+                                                <option value="Cancelled" {{ $booking->booking_status == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
+                                                <option value="Completed" {{ $booking->booking_status == 'Completed' ? 'selected' : '' }}>Completed</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        
                     </div>
                 </div>
 
@@ -66,6 +67,7 @@
 </main><!-- End #main -->
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     document.querySelectorAll('.update-status').forEach(select => {
@@ -100,6 +102,7 @@
         });
     });
 </script>
+
 
 </script>
 

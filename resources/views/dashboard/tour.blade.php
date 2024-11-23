@@ -97,13 +97,13 @@
                                             </button>
                                             @else
                                             <a href="{{ route('tour.itinerary', ['tour' => $tour->id]) }}"
-                                                class="btn btn-primary btn-sm">
+                                                class="btn btn-sm" style="color: #fff;background:#d97706">
                                                 Itinerary
                                             </a>
 
                                             <!-- If the tour is not deleted, show the edit and delete buttons -->
                                             <a href="{{ route('tour.edit', $tour->id) }}"
-                                                class="btn btn-primary btn-sm">
+                                                class="btn btn-sm" style="color: #fff;background:#d97706">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
 
