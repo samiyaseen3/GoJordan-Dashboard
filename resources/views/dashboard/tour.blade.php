@@ -32,7 +32,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Tour Table</h5>
-                        <a id="addUserBtn" href="{{route('tour.create')}}" class="btn btn-primary">Add new tour</a>
+                        <a id="addUserBtn" href="{{route('tour.create')}}" class="btn" style="color: #fff;background:#d97706">Add new tour</a>
                         <!-- Table with stripped rows -->
                         <table class="table datatable">
                             <thead>

@@ -1,145 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Dashboard - NiceAdmin Bootstrap Template</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-
-</head>
-
-<body>
-
-  
 @extends('source.template')
+
 @section('content')
-    
+
 
 <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Bookings</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
-          <li class="breadcrumb-item active">Bookings</li>
-        </ol>
-      </nav>
+        <h1>Bookings</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('booking.index') }}">Home</a></li>
+                <li class="breadcrumb-item active">Bookings</li>
+            </ol>
+        </nav>
     </div><!-- End Page Title -->
 
     <section class="section">
-      <div class="row">
-        <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-12">
 
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Booking Table</h5>
-              
-              <!-- Table with stripped rows -->
-              <table class="table datatable">
-                <thead>
-                  <tr>
-                    <th>
-                      <b>N</b>ame
-                    </th>
-                    <th>Ext.</th>
-                    <th>City</th>
-                    <th data-type="date" data-format="YYYY/DD/MM">Start Date</th>
-                    <th>Completion</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Unity Pugh</td>
-                    <td>9958</td>
-                    <td>Curicó</td>
-                    <td>2005/02/11</td>
-                    <td>37%</td>
-                  </tr>
-                  <tr>
-                    <td>Theodore Duran</td>
-                    <td>8971</td>
-                    <td>Dhanbad</td>
-                    <td>1999/04/07</td>
-                    <td>97%</td>
-                  </tr>
-                  <tr>
-                    <td>Kylie Bishop</td>
-                    <td>3147</td>
-                    <td>Norman</td>
-                    <td>2005/09/08</td>
-                    <td>63%</td>
-                  </tr>
-                  <tr>
-                    <td>Willow Gilliam</td>
-                    <td>3497</td>
-                    <td>Amqui</td>
-                    <td>2009/29/11</td>
-                    <td>30%</td>
-                  </tr>
-                  <tr>
-                    <td>Blossom Dickerson</td>
-                    <td>5018</td>
-                    <td>Kempten</td>
-                    <td>2006/11/09</td>
-                    <td>17%</td>
-                  </tr>
-                  <tr>
-                    <td>Elliott Snyder</td>
-                    <td>3925</td>
-                    <td>Enines</td>
-                    <td>2006/03/08</td>
-                    <td>57%</td>
-                  </tr>
-                  <tr>
-                    <td>Castor Pugh</td>
-                    <td>9488</td>
-                    <td>Neath</td>
-                    <td>2014/23/12</td>
-                    <td>93%</td>
-                  </tr>
-                  <tr>
-                    <td>Pearl Carlson</td>
-                    <td>6231</td>
-                    <td>Cobourg</td>
-                    <td>2014/31/08</td>
-                    <td>100%</td>
-                  </tr>
-                  <tr>
-                    <td>Deirdre Bridges</td>
-                    <td>1579</td>
-                    <td>Eberswalde-Finow</td>
-                    <td>2014/26/08</td>
-                    <td>44%</td>
-                  </tr>
-                  <tr>
-                    <td>Daniel Baldwin</td>
-                    <td>6095</td>
-                    <td>Moircy</td>
-                    <td>2000/11/01</td>
-                    <td>33%</td>
-                  </tr>
-                </tbody>
-              </table>
-              <!-- End Table with stripped rows -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Booking Table</h5>
+                        <table class="table datatable mt-3">
+                          <thead>
+                              <tr>
+                                  <th>#</th>
+                                  <th>User</th>
+                                  <th>Tour</th>
+                                  <th>Booking Date</th>
+                                  <th>Number of Guests</th>
+                                  <th>Total Price</th>
+                                  <th>Status</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              @foreach ($bookings as $booking)
+                                  <tr>
+                                      <td>{{ $booking->id }}</td>
+                                      <td>{{ $booking->user->name }}</td>
+                                      <td>{{ $booking->tour ? $booking->tour->title : 'N/A' }}</td>
+                                      <td>{{ $booking->booking_date }}</td>
+                                      <td>{{ $booking->number_of_guests }}</td>
+                                      <td>${{ $booking->tour ? $booking->tour->price * $booking->number_of_guests : '0.00' }}</td>
+                                      <td>
+                                          <!-- Editable Status -->
+                                          <select class="form-select form-select-sm update-status" data-id="{{ $booking->id }}">
+                                              <option value="Pending" {{ $booking->booking_status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                              <option value="Confirmed" {{ $booking->booking_status == 'Confirmed' ? 'selected' : '' }}>Confirmed</option>
+                                              <option value="Confirmed" {{ $booking->booking_status == 'Completed' ? 'selected' : '' }}>Completed</option>
+                                              <option value="Cancelled" {{ $booking->booking_status == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
+                                          </select>
+                                      </td>
+                                  </tr>
+                              @endforeach
+                          </tbody>
+                      </table>
+                    </div>
+                </div>
 
             </div>
-          </div>
-
         </div>
-      </div>
     </section>
 
-  </main><!-- End #main -->
+</main><!-- End #main -->
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    document.querySelectorAll('.update-status').forEach(select => {
+        select.addEventListener('change', function () {
+            const bookingId = this.getAttribute('data-id');
+            const newStatus = this.value;
+
+            // Send the AJAX request
+            axios.patch(`/booking/${bookingId}/status`, {
+                status: newStatus,
+                _token: '{{ csrf_token() }}',
+            })
+            .then(response => {
+                if (response.data.success) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: response.data.message,
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false,
+                    });
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Unable to update status. Please try again later.',
+                    icon: 'error',
+                });
+            });
+        });
+    });
+</script>
+
+</script>
 
 @endsection
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-</body>
-
-</html>

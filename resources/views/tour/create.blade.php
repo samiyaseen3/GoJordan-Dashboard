@@ -111,7 +111,7 @@
                         <input type="text" name="itinerary[0][meal_plan]" class="form-control">
                     </div>
                 </div>
-                <button type="button" class="btn btn-info" id="add-itinerary">Add Another Day</button>
+                <button type="button" class="btn btn-primary mt-3" id="add-itinerary">Add Another Day</button>
               </div>
 
             <div class="text-center">

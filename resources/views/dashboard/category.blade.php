@@ -39,7 +39,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Category Table</h5>
-              <a href="{{ route('category.create') }}" class="btn btn-primary">Add new category</a>
+              <a href="{{ route('category.create') }}" class="btn" style="color: #fff;background:#d97706">Add new category</a>
               <table class="table datatable mt-3">
                 <thead>
                   <tr>
@@ -66,7 +66,7 @@
                                    style="width: 50px; height: 50px; border-radius: 10%;">
                           </td>
                           <td>
-                              <div class="d-flex gap-3 align-items-center">
+                             
                                 @if ($category->trashed())
                                 <!-- Restore form -->
                                 <form id="restoreForm-{{ $category->id }}" action="{{ route('category.restore', $category->id) }}" method="POST" style="display: none;">
@@ -77,7 +77,7 @@
                                 </button>
                             @else
                                 <!-- If the user is not deleted, show the edit and delete buttons -->
-                                <a href="{{ route('category.edit', $category->id) }}" class="btn btn-primary btn-sm">
+                                <a href="{{ route('category.edit', $category->id) }}" class="btn btn-sm" style="color: #fff;background:#d97706">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
                             
@@ -90,7 +90,7 @@
                                     <i class="bi bi-trash"></i>
                                 </button>
                             @endif
-                            </div>
+                            
                           </td>
                       </tr>
                   @endforeach

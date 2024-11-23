@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class AuthenticatedSessionController extends Controller
@@ -66,6 +67,19 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->role == 'admin') {
+            return redirect()->route('dashboard.index');  
+        }
+
+        Auth::logout();
+
+        return Redirect::route('login')->withErrors([
+            'login' => 'You do not have permission to access the admin dashboard.'
+        ]); 
     }
 }
 

@@ -1,11 +1,13 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProfileController;
+use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\UserController;
-use App\Models\Category;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,14 +20,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// users routes
+
+
+
+  Route::get('/' , function(){
+    return view('welcome');
+  });
+  Route::middleware(['auth'])->group(function () {
+    Route::get('/index', function(){
+        if (Auth::user()->role == 'admin') {
+            return view('dashboard.index');  // Admin dashboard
+        }
+        else{
+            return redirect()->route('login');
+        }
+    })->name('dashboard.index');
+    // users routes
 Route::get('/users', [UserController::class, 'index'])->name('user.index');
-    Route::get('/create' , [UserController::class , 'create'])->name('user.create');
-    Route::post('/user', [UserController::class, 'store'])->name('user.store');
-    Route::get('/user/{user}/edit' , [UserController::class , 'edit'])->name('user.edit');
-    Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
-    Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
-    Route::post('/user/{id}/restore', [UserController::class, 'restore'])->name('user.restore');
+Route::get('/create' , [UserController::class , 'create'])->name('user.create');
+Route::post('/user', [UserController::class, 'store'])->name('user.store');
+Route::get('/user/{user}/edit' , [UserController::class , 'edit'])->name('user.edit');
+Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
+Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+Route::post('/user/{id}/restore', [UserController::class, 'restore'])->name('user.restore');
 
 //categories routes
 
@@ -50,28 +67,11 @@ Route::delete('tour/{tour}/images/{imageId}', [TourController::class, 'deleteIma
 Route::delete('tour/{tour}', [TourController::class, 'destroy'])->name('tour.destroy');
 Route::post('tour/{tour}/restore', [TourController::class, 'restore'])->name('tour.restore');
 
-
-
-
-
-
-
-
-
-  //bookings routs
-
-  Route::get('/booking' , function(){
-    return view('dashboard/booking');
-  })->name('dashboard.booking');
-
-  Route::get('/' , function(){
-    return view('welcome');
-  });
-  Route::middleware(['auth'])->group(function () {
-    Route::get('/index', function(){
-        return view('dashboard/index');
-    })->name('dashboard.index');
+//bookings
+Route::get('/bookings', [BookingController::class, 'index'])->name('booking.index');
+Route::patch('/booking/{id}/status', [BookingController::class, 'updateStatus'])->name('booking.updateStatus');
 });
+
 
 
 
@@ -83,8 +83,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    //users route
-    // Route::put('/users/{user}' , UserController::class , 'update')->name('user.update');
 });
 
 require __DIR__.'/auth.php';

@@ -39,7 +39,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">User Table</h5>
-              <a id="addUserBtn" href="{{route('user.create')}}" class="btn btn-primary">Add new user</a>
+              <a id="addUserBtn" href="{{route('user.create')}}" class="btn" style="color: #fff;background:#d97706">Add new user</a>
               <!-- Table with stripped rows -->
               <table class="table datatable mt-3">
                 <thead>
@@ -59,7 +59,7 @@
                     <td>{{$user->email}}</td>
                     <td>{{$user->phone_number}}</td>
                     <td>
-                      <div class="d-flex gap-3 align-items-center">
+                      
                         @if ($user->trashed())
                         <form id="restoreForm-{{ $user->id }}" action="{{ route('user.restore', $user->id) }}" method="POST" style="display: none;">
                             @csrf
@@ -68,7 +68,7 @@
                             <i class="bi bi-arrow-counterclockwise"></i> Restore
                         </button>
                     @else
-                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-sm">
+                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm" style="color: white;background:#d97706">
                             <i class="bi bi-pencil-square"></i>
                         </a>
                         <form id="deleteForm-{{ $user->id }}" action="{{ route('user.destroy', $user->id) }}" method="POST" style="display: none;">
@@ -79,7 +79,7 @@
                             <i class="bi bi-trash"></i>
                         </button>
                     @endif
-                    </div>
+                   
                   </td>
                   </tr>
                   @endforeach
