@@ -69,13 +69,17 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script>
-    document.querySelectorAll('.update-status').forEach(select => {
-        select.addEventListener('change', function () {
-            const bookingId = this.getAttribute('data-id');
-            const newStatus = this.value;
 
-            // Send the AJAX request
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('change', function (event) {
+        if (event.target.classList.contains('update-status')) {
+            const bookingId = event.target.getAttribute('data-id');
+            console.log(`Selected Booking ID: ${bookingId}`);
+            
+            const newStatus = event.target.value;
+
             axios.patch(`/booking/${bookingId}/status`, {
                 status: newStatus,
                 _token: '{{ csrf_token() }}',
@@ -99,9 +103,9 @@
                     icon: 'error',
                 });
             });
-        });
+        }
     });
-</script>
+});
 
 
 </script>

@@ -11,8 +11,6 @@ class BookingController extends Controller
   public function index()
     {
         $bookings = Booking::with(['tour', 'user'])->get();
-    
-        // Calculate total price
         $totalPrice = $bookings->reduce(function ($carry, $booking) {
             return $carry + (($booking->tour ? $booking->tour->price : 0) * $booking->number_of_guests);
         }, 0);
@@ -22,17 +20,17 @@ class BookingController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        // Validate the input
+        
         $request->validate([
             'status' => 'required|string|in:Pending,Confirmed,Cancelled,Completed',
         ]);
     
-        // Find the booking and update its status
+        
         $booking = Booking::findOrFail($id);
         $booking->booking_status = $request->status;
         $booking->save();
     
-        // Return a JSON response
+        
         return response()->json([
             'success' => true,
             'message' => 'Status updated successfully!',

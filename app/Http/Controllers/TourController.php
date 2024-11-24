@@ -104,7 +104,7 @@ class TourController extends Controller
 
     public function edit(Tour $tour)
     {
-        $categories = Category::all(); // Get all categories for the select dropdown
+        $categories = Category::all(); 
         return view('tour.edit', compact('tour', 'categories'));
     }
 
@@ -158,11 +158,11 @@ class TourController extends Controller
         }
       
     
-        // Handle itinerary updates or new itineraries
+        
         if ($request->has('itinerary')) {
             foreach ($request->itinerary as $itineraryData) {
                 if (isset($itineraryData['id'])) {
-                    // Update existing itinerary
+                    
                     $itinerary = $tour->itineraries()->find($itineraryData['id']);
                     if ($itinerary) {
                         $itinerary->update([
@@ -173,7 +173,7 @@ class TourController extends Controller
                         ]);
                     }
                 } else {
-                    // Create a new itinerary
+                    
                     $tour->itineraries()->create([
                         'day_number' => $itineraryData['day_number'],
                         'location' => $itineraryData['location'],

@@ -22,6 +22,8 @@ class UserController extends Controller
     $users = User::withTrashed()->where('role', 'user')->get();
 
     return view('dashboard.user', compact('users'));
+
+    
 }
 
     /**
