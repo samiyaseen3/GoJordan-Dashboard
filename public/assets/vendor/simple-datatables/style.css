@@ -122,7 +122,6 @@
 .datatable-table > thead > tr > th {
 	vertical-align: top;
 	padding: 8px 10px;
-	text-align: center;
 }
 
 .datatable-table > thead > tr > th {
@@ -155,8 +154,7 @@
     cursor: pointer;
     text-align: inherit;
     font-weight: inherit;
-    font-size: 14px;
-	text-align: center;
+    font-size: inherit;
 }
 
 .datatable-sorter, .datatable-filter {

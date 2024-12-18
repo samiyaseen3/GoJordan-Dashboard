@@ -66,7 +66,7 @@ class IndexController extends Controller
         ];
     
         
-        return view('dashboard.index', compact('chartData', 'filter'));
+        return view('admin.dashboard.index', compact('chartData', 'filter'));
     }
     
 

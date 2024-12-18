@@ -28,7 +28,7 @@ class AuthenticatedSessionController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        // Validate the incoming request data
+        
         $validator = Validator::make($credentials, [
             'email' => ['required', 'email'],
             'password' => ['required', 'string'],
@@ -41,13 +41,13 @@ class AuthenticatedSessionController extends Controller
         }
 
         if (Auth::attempt($credentials)) {
-            // Successful login
+           
             $request->session()->regenerate();
 
             return redirect()->route('dashboard.index');
         }
 
-        // If the credentials are incorrect, or the user is not found
+        
         return back()->withErrors([
             'email' => 'These credentials do not match our records.',
         ]);
@@ -59,13 +59,18 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        $userRole = Auth::user()->role;
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        if ($userRole === 'admin') {
+            return redirect()->route('admin.login')->with('message', 'Logged out successfully.');
+        }
+
+        return redirect('user_index');
     }
 
     protected function authenticated(Request $request, $user)

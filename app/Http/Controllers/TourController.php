@@ -16,7 +16,7 @@ class TourController extends Controller
         $tours = Tour::with(['images', 'category'])->withTrashed()->get();
     
 
-        return view('dashboard.tour', compact('tours'));
+        return view('admin.dashboard.tour', compact('tours'));
     }
     public function showItinerary($tourId)
     {
@@ -27,7 +27,7 @@ class TourController extends Controller
         $itineraries = $tour->itineraries;
 
 
-        return view('dashboard.itinerary', compact('tour', 'itineraries'));
+        return view('admin.dashboard.itinerary', compact('tour', 'itineraries'));
     }
 
     public function create()
@@ -36,7 +36,7 @@ class TourController extends Controller
         $categories = Category::all();
 
         // Return the create view with categories
-        return view('tour.create', compact('categories'));
+        return view('admin.tour.create', compact('categories'));
     }
 
 
@@ -105,7 +105,7 @@ class TourController extends Controller
     public function edit(Tour $tour)
     {
         $categories = Category::all(); 
-        return view('tour.edit', compact('tour', 'categories'));
+        return view('admin.tour.edit', compact('tour', 'categories'));
     }
 
     public function update(Request $request, Tour $tour)

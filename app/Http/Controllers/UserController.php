@@ -21,7 +21,7 @@ class UserController extends Controller
     // Get only users with the 'User' role, including soft-deleted ones
     $users = User::withTrashed()->where('role', 'user')->get();
 
-    return view('dashboard.user', compact('users'));
+    return view('admin.dashboard.user', compact('users'));
 
     
 }
@@ -31,7 +31,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create');
+        return view('admin.user.create');
     }
 
     /**
@@ -109,7 +109,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('user.edit', compact('user'));
+        return view('admin.user.edit', compact('user'));
     }
 
     /**

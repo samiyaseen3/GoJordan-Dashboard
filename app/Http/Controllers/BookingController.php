@@ -15,7 +15,7 @@ class BookingController extends Controller
             return $carry + (($booking->tour ? $booking->tour->price : 0) * $booking->number_of_guests);
         }, 0);
     
-        return view('dashboard.booking', compact('bookings', 'totalPrice'));
+        return view('admin.dashboard.booking', compact('bookings', 'totalPrice'));
     }
 
     public function updateStatus(Request $request, $id)
