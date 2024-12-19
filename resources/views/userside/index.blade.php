@@ -28,11 +28,6 @@
         overflow: hidden;
     }
 </style>
-	
-
-	
-
-
 	<div class="hero-wrap js-fullheight">
 		<div class="overlay">
 			<div class="hero-video">
@@ -55,102 +50,6 @@
 			</div>
 		</div>
 	</div>
- 
-	<section class="ftco-section ftco-no-pb ftco-no-pt">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="ftco-search d-flex justify-content-center">
-						<div class="row">
-							<div class="col-md-12 nav-link-wrap">
-								<div class="nav nav-pills text-center" id="v-pills-tab" role="tablist"
-									aria-orientation="vertical">
-									<a class="nav-link active mr-md-1" id="v-pills-1-tab" data-toggle="pill"
-										href="#v-pills-1" role="tab" aria-controls="v-pills-1"
-										aria-selected="true">Search Tour</a>
-
-									
-
-								</div>
-							</div>
-							<div class="col-md-12 tab-wrap">
-
-								<div class="tab-content" id="v-pills-tabContent">
-
-									<div class="tab-pane fade show active" id="v-pills-1" role="tabpanel"
-										aria-labelledby="v-pills-nextgen-tab">
-										<form action="#" class="search-property-1">
-											<div class="row no-gutters">
-												<div class="col-md d-flex">
-													<div class="form-group p-4 border-0">
-														<label for="#">Destination</label>
-														<div class="form-field">
-															<div class="icon"><span class="fa fa-search"></span></div>
-															<input type="text" class="form-control"
-																placeholder="Search place">
-														</div>
-													</div>
-												</div>
-												<div class="col-md d-flex">
-													<div class="form-group p-4">
-														<label for="#">Check-in date</label>
-														<div class="form-field">
-															<div class="icon"><span class="fa fa-calendar"></span></div>
-															<input type="text" class="form-control checkin_date"
-																placeholder="Check In Date">
-														</div>
-													</div>
-												</div>
-												<div class="col-md d-flex">
-													<div class="form-group p-4">
-														<label for="#">Check-out date</label>
-														<div class="form-field">
-															<div class="icon"><span class="fa fa-calendar"></span></div>
-															<input type="text" class="form-control checkout_date"
-																placeholder="Check Out Date">
-														</div>
-													</div>
-												</div>
-												<div class="col-md d-flex">
-													<div class="form-group p-4">
-														<label for="#">Price Limit</label>
-														<div class="form-field">
-															<div class="select-wrap">
-																<div class="icon"><span
-																		class="fa fa-chevron-down"></span></div>
-																<select name="" id="" class="form-control">
-																	<option value="">$100</option>
-																	<option value="">$10,000</option>
-																	<option value="">$50,000</option>
-																	<option value="">$100,000</option>
-																	<option value="">$200,000</option>
-																	<option value="">$300,000</option>
-																	<option value="">$400,000</option>
-																	<option value="">$500,000</option>
-																	<option value="">$600,000</option>
-																	<option value="">$700,000</option>
-																	<option value="">$800,000</option>
-																	<option value="">$900,000</option>
-																	<option value="">$1,000,000</option>
-																	<option value="">$2,000,000</option>
-																</select>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</form>
-									</div>
-
-									
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-	</section>
-
 	<section class="ftco-section services-section">
 		<div class="container">
 			<div class="row d-flex">
@@ -203,9 +102,6 @@
 			</div>
 		</div>
 	</section>
-
-	
-
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center pb-4">
@@ -259,12 +155,6 @@
 			</div>
 		</div>
 	</section>
-	
-
-	
-
-	
-
 	<section class="ftco-section testimony-section bg-bottom" style="background-image: url(images/bg_1.jpg);">
 		<div class="overlay"></div>
 		<div class="container">
@@ -392,10 +282,6 @@
 			</div>
 		</div>
 	</section>
-
-
-	
-
 	<section class="ftco-intro ftco-section ftco-no-pt">
 		<div class="container">
 			<div class="row justify-content-center">

@@ -18,12 +18,18 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, string $role)
     {
-        // Check if user is logged in and has the required role
-        if (Auth::check() && Auth::user()->role === $role) {
+        
+        if (!Auth::check()) {
+           
+            return redirect()->route('user.login');
+        }
+
+        // Check if user has the required role
+        if (Auth::user()->role === $role) {
             return $next($request);
         }
 
-        // If the user is not authorized, abort with 403 Forbidden
+       
         abort(403, 'You do not have permission to access this page.');
     }
 }

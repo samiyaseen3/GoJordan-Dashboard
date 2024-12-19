@@ -10,15 +10,16 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserSide\HomeController;
+use App\Http\Controllers\UserSide\PageController;
 use App\Http\Controllers\Auth\UserLoginController;
 use App\Http\Controllers\UserSide\UserTourController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
-|--------------------------------------------------------------------------
+|---------------------------------------------------------------------------
 | Web Routes
-|--------------------------------------------------------------------------
+|---------------------------------------------------------------------------
 */
 
 Route::get('/', function () {
@@ -37,31 +38,28 @@ Route::post('/user/login', [UserLoginController::class, 'login'])->name('user.lo
 Route::get('/admin/login', [AuthenticatedSessionController::class, 'create'])->name('admin.login');
 Route::post('/admin/login', [AuthenticatedSessionController::class, 'store'])->name('admin.login.submit');
 
-// Home page for users (public view)
-Route::get('/user_index', function () {
-    return view('userside.index');
-})->name('userside.index');
+// User-side routes (public-facing pages)
 
-Route::get('/about', function () {
-    return view('userside.about');
-})->name('userside.about');
+Route::get('/about', [PageController::class, 'about'])->name('userside.about');
+Route::get('/contact', [PageController::class, 'contact'])->name('userside.contact');
 
-Route::get('/contact', function () {
-    return view('userside.contact');
-})->name('userside.contact');
 Route::get('/private-tour', function () {
     return view('userside.private-tour');
 })->name('userside.private-tour');
 
+Route::get('/tours-details' , function(){
+    return view('userside.tours-details');
+});
+
 Route::get('/tours/full-adventure', [UserTourController::class, 'showFullAdventureTours'])->name('tours.full-adventure');
 Route::get('/search', [UserTourController::class, 'search'])->name('userside.search');
-
 Route::get('/tours/mini-adventure', [UserTourController::class, 'showMiniAdventureTours'])->name('tours.mini-adventure');
 Route::get('/tours/day-adventure', [UserTourController::class, 'showDayAdventureTours'])->name('tours.day-adventure');
 Route::get('/tours/all-adventure', [UserTourController::class, 'showAllAdventureTours'])->name('tours.all-adventure');
 Route::get('/user_index', [HomeController::class, 'index'])->name('userside.index');
-
+// User Dashboard (authenticated users only)
 Route::middleware(['auth', 'role:user'])->group(function () {
+   
     // User Logout Route
     Route::post('/user/logout', function () {
         auth()->logout();
@@ -69,7 +67,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     })->name('user.logout');
 });
 
-// Routes for authenticated admins (admin side)
+// Routes for authenticated admins (admin dashboard)
 Route::middleware(['auth', 'role:admin'])->group(function () {
     // Admin Dashboard Route
     Route::get('/index', [IndexController::class, 'index'])->name('dashboard.index');

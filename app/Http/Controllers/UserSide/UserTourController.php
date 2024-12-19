@@ -10,6 +10,14 @@ class UserTourController extends Controller
 {
     public function showFullAdventureTours(Request $request)
     {
+
+        if (auth()->check() && auth()->user()->role == 'admin') {
+           
+            auth()->logout();
+            
+            return redirect()->route('admin.login')->with('message', 'You have been logged out because you tried to access the user homepage.');
+        }
+    
         $query = Tour::whereHas('category', function ($query) {
             $query->where('name', 'Full Adventure');
         });
@@ -39,6 +47,13 @@ class UserTourController extends Controller
 
     public function showMiniAdventureTours(Request $request)
     {
+        if (auth()->check() && auth()->user()->role == 'admin') {
+           
+            auth()->logout();
+            
+            return redirect()->route('admin.login')->with('message', 'You have been logged out because you tried to access the user homepage.');
+        }
+
         $tours = Tour::whereHas('category', function ($query) {
             $query->where('name', 'Mini Adventure');
         })->paginate(6);
@@ -58,6 +73,14 @@ class UserTourController extends Controller
 
     public function showDayAdventureTours(Request $request)
     {
+
+        if (auth()->check() && auth()->user()->role == 'admin') {
+           
+            auth()->logout();
+            
+            return redirect()->route('admin.login')->with('message', 'You have been logged out because you tried to access the user homepage.');
+        }
+
         $tours = Tour::whereHas('category', function ($query) {
             $query->where('name', 'Day Adventure');
         })->paginate(6);
@@ -74,6 +97,13 @@ class UserTourController extends Controller
 
     public function showAllAdventureTours(Request $request)
     {
+        if (auth()->check() && auth()->user()->role == 'admin') {
+           
+            auth()->logout();
+            
+            return redirect()->route('admin.login')->with('message', 'You have been logged out because you tried to access the user homepage.');
+        }
+
         $tours = Tour::whereHas('category', function ($query) {
             
         })->paginate(6);
@@ -90,6 +120,12 @@ class UserTourController extends Controller
 
     public function search(Request $request)
     {
+        if (auth()->check() && auth()->user()->role == 'admin') {
+           
+            auth()->logout();
+            
+            return redirect()->route('admin.login')->with('message', 'You have been logged out because you tried to access the user homepage.');
+        }
         
         $request->validate([
             'query' => 'required|string|max:255',

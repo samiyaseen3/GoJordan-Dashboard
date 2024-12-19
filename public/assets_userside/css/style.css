@@ -6671,26 +6671,36 @@ button.bg-dark:focus {
   position: -webkit-sticky !important;
   position: sticky !important; }
 
-.fixed-top {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 1030; }
-
-.fixed-bottom {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1030; }
-
-@supports ((position: -webkit-sticky) or (position: sticky)) {
-  .sticky-top {
-    position: -webkit-sticky;
-    position: sticky;
+  @supports ((position: -webkit-sticky) or (position: sticky)) {
+    .sticky-top {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 100px; /* Adjust this value to position the card */
+      right: 20px; /* Adjust this value to position the card */
+      
+    }
+  }
+  
+  .fixed-top {
+    position: fixed;
     top: 0;
-    z-index: 1020; } }
+    right: 0;
+    left: 0;
+    z-index: 1030;
+  }
+  
+  .fixed-bottom {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+  }
+  
+  .col-lg-12 {
+    width: 50%;
+  }
+  
 
 .sr-only {
   position: absolute;
