@@ -138,6 +138,13 @@ class UserTourController extends Controller
         
         return view('userside.search-results', compact('tours', 'query'));
     }
-    
+
+    public function show($id)
+    {
+       
+        $tour = Tour::with(['images', 'category', 'itineraries'])->findOrFail($id);
+        return view('userside.tours-details', compact('tour'));
+    }
+
  
 }

@@ -32,7 +32,7 @@
             @endif
 
             <!-- Login Form -->
-            <form method="POST" action="{{ route('login') }}" class="space-y-4">
+            <form method="POST" action="{{ route('admin.login.submit') }}" class="space-y-4">
                 @csrf
                 <div class="space-y-3">
                     <!-- Email Address -->

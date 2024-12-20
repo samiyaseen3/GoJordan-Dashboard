@@ -87,9 +87,9 @@
 
                         <div class="text p-4">
                             <span class="days">{{ $tour->duration }} Days</span>
-                            <h3><a href="">{{ $tour->title }}</a></h3>
+                            <h3><a href="{{ route('tour.details', ['id' => $tour->id]) }}">{{ $tour->title }}</a></h3>
                             <p class="location"><span class="fa fa-map-marker"></span> {{ $tour->category->name ?? 'Uncategorized' }}</p>
-                            <a href="" class="btn btn-primary">View Tour</a>
+                            <a href="{{ route('tour.details', ['id' => $tour->id]) }}" class="btn btn-primary">View Tour</a>
                         </div>
                     </div>
                 </div>

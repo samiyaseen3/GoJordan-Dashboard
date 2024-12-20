@@ -41,7 +41,7 @@ Route::post('/admin/login', [AuthenticatedSessionController::class, 'store'])->n
 // User-side routes (public-facing pages)
 
 Route::get('/about', [PageController::class, 'about'])->name('userside.about');
-Route::get('/contact', [PageController::class, 'contact'])->name('userside.contact');
+
 
 Route::get('/private-tour', function () {
     return view('userside.private-tour');
@@ -56,11 +56,16 @@ Route::get('/search', [UserTourController::class, 'search'])->name('userside.sea
 Route::get('/tours/mini-adventure', [UserTourController::class, 'showMiniAdventureTours'])->name('tours.mini-adventure');
 Route::get('/tours/day-adventure', [UserTourController::class, 'showDayAdventureTours'])->name('tours.day-adventure');
 Route::get('/tours/all-adventure', [UserTourController::class, 'showAllAdventureTours'])->name('tours.all-adventure');
+Route::get('/tour-details/{id}', [UserTourController::class, 'show'])->name('tour.details');
 Route::get('/user_index', [HomeController::class, 'index'])->name('userside.index');
+
+
 // User Dashboard (authenticated users only)
 Route::middleware(['auth', 'role:user'])->group(function () {
-   
-    // User Logout Route
+    
+    Route::get('/contact', [PageController::class, 'contact'])->name('userside.contact');
+
+  
     Route::post('/user/logout', function () {
         auth()->logout();
         return redirect()->route('user.login');

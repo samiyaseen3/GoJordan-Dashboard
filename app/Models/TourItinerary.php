@@ -19,6 +19,6 @@ class TourItinerary extends Model
     // Define the inverse relationship with Tour
     public function tour()
     {
-        return $this->belongsTo(Tour::class);
+        return $this->belongsTo(Tour::class , 'tour_id');
     }
 }

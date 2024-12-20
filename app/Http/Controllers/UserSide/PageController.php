@@ -18,10 +18,7 @@ class PageController extends Controller
             auth()->logout();
             
             return redirect()->route('admin.login')->with('message', 'You have been logged out because you tried to access the user homepage.');
-        }
-    
-      
-        
+        }        
         return view('userside.about');
     }
 

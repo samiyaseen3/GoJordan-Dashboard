@@ -2,9 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Booking;
+use App\Models\Category;
+use App\Models\TourDate;
+use App\Models\TourImage;
+use App\Models\TourItinerary;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Tour extends Model
 {
@@ -25,11 +30,16 @@ class Tour extends Model
     }
 
     public function itineraries(){
-        return $this->hasMany(TourItinerary::class);
+        return $this->hasMany(TourItinerary::class , 'tour_id');
     }
 
     public function bookings()
     {
         return $this->hasMany(Booking::class, 'tour_id');
+    }
+
+    public function dates()
+    {
+        return $this->hasMany(TourDate::class); // One tour has many tour dates
     }
 }

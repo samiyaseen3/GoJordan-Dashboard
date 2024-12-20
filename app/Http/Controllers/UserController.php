@@ -52,6 +52,13 @@ class UserController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
 
+        if (User::where('phone_number', $request->phone_number)->exists()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'The phone number already exists.',
+            ]);
+        }
+
         // Using libphonenumber to parse and validate the phone number
         $phoneUtil = PhoneNumberUtil::getInstance();
         try {
@@ -125,6 +132,13 @@ class UserController extends Controller
         'city' => 'nullable|string|max:255',
         'password' => 'nullable|min:6|confirmed', // Make password optional during update
     ]);
+
+    if (User::where('phone_number', $request->phone_number)->where('id', '!=', $user->id)->exists()) {
+        return response()->json([
+            'success' => false,
+            'message' => 'The phone number already exists.',
+        ]);
+    }
 
     // Validate phone number using libphonenumber
     $phoneUtil = PhoneNumberUtil::getInstance();

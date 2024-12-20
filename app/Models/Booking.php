@@ -19,4 +19,9 @@ class Booking extends Model
     return $this->belongsTo(Tour::class, 'tour_id');
 }
 
+public function tour_date()
+{
+    return $this->belongsTo(TourDate::class);
+}
+
 }

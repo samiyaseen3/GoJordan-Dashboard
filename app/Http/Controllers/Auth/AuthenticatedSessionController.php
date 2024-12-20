@@ -84,5 +84,7 @@ class AuthenticatedSessionController extends Controller
     // Redirect non-admin users to an error page
     return abort(403, 'Access denied.');
 }
+
+
 }
 
