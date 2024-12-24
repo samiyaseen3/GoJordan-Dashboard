@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!-- Dollar bill -->
+  <rect x="2" y="6" width="20" height="12" rx="1" fill="#43A047"/>
+  <!-- Center circle -->
+  <circle cx="12" cy="12" r="3" fill="#2E7D32"/>
+  <!-- Dollar sign -->
+  <path d="M12,9 L12,15 M11,10 L13,10 L13,11 L11,11 L11,13 L13,13 L13,14 L11,14" 
+        stroke="#FFFFFF" stroke-width="1" fill="none"/>
+  <!-- Corner numbers -->
+  <circle cx="5" cy="9" r="1" fill="#2E7D32"/>
+  <circle cx="19" cy="15" r="1" fill="#2E7D32"/>
+</svg>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Log;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,7 @@ class CheckRole
            
             return redirect()->route('user.login');
         }
+
 
         // Check if user has the required role
         if (Auth::user()->role === $role) {

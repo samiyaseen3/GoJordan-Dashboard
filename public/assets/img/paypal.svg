@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!-- First P -->
+  <path d="M7,7 C7,4 9,3 11,3 L16,3 C18,3 19,4 19,6 C19,9 17,10 15,10 L13,10 L12,15" 
+        fill="none" stroke="#003087" stroke-width="2" stroke-linecap="round"/>
+  <!-- Second P (shadow) -->
+  <path d="M4,11 C4,8 6,7 8,7 L13,7 C15,7 16,8 16,10 C16,13 14,14 12,14 L10,14 L9,19" 
+        fill="none" stroke="#009cde" stroke-width="2" stroke-linecap="round"/>
+</svg>

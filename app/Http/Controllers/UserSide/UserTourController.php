@@ -146,5 +146,15 @@ class UserTourController extends Controller
         return view('userside.tours-details', compact('tour'));
     }
 
+
+    public function showTourDetails($id) 
+    {
+        $tour = Tour::with(['images', 'dates' => function($query) {
+            $query->where('availability', '>', 0);
+        }])->findOrFail($id);
+        return view('userside.tour-details', compact('tour'));
+    }
+    
+
  
 }

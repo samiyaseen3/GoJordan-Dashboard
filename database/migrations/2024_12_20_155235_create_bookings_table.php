@@ -21,7 +21,6 @@ class CreateBookingsTable extends Migration
             $table->foreignId('tour_date_id')->constrained('tour_dates')->onDelete('cascade'); // Foreign key referencing tour_dates
             $table->dateTime('booking_date')->default(DB::raw('CURRENT_TIMESTAMP')); // Booking date
             $table->enum('booking_status', ['Pending', 'Confirmed', 'Cancelled', 'Completed'])->default('Pending'); // Booking status
-            $table->decimal('booking_price', 10, 2); // Booking price
             $table->enum('payment_status', ['Pending', 'Paid', 'Failed'])->default('Pending'); // Payment status
             $table->enum('payment_method', ['Credit Card', 'PayPal', 'Bank Transfer'])->default('Credit Card'); // Payment method
             $table->dateTime('payment_date')->nullable(); // Payment date

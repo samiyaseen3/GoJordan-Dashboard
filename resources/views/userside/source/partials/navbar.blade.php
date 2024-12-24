@@ -20,7 +20,10 @@
     <link rel="stylesheet" href="{{asset('/assets_userside/css/flaticon.css')}}">
     <link rel="stylesheet" href="{{asset('assets_userside/css/style.css')}}">
     <style>
-        /* Search container styling */
+          @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+          body {
+            font-family: 'Poppins', sans-serif;
+        }
         #search-form-container {
           position: absolute;
           top: 80px;
@@ -135,7 +138,7 @@
                                 {{ Auth::user()->name }} <!-- User Name -->
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
-                                <a class="dropdown-item" href="">
+                                <a class="dropdown-item" href="{{route('userside.profile')}}">
                                     <i class="fa fa-user mr-2"></i> Profile
                                 </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

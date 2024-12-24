@@ -9,6 +9,8 @@ class TourDate extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['tour_id', 'start_date', 'end_date', 'availability'];
+
     public function tour()
     {
         return $this->belongsTo(Tour::class); 

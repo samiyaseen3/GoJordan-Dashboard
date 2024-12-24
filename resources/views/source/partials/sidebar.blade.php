@@ -30,6 +30,12 @@
       </li><!-- End Tables Nav -->
 
       <li class="nav-item active">
+        <a class="nav-link collapsed"  href="{{route(('tour_dates.index'))}}">
+          <i class="bi bi-calendar-date"></i><span>Tour Date</span>
+        </a>
+      </li><!-- End Tables Nav -->
+
+      <li class="nav-item active">
         <a class="nav-link collapsed"  href="{{route('booking.index')}}">
           <i class="bi bi-calendar-check"></i><span>Booking</span>
         </a>
