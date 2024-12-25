@@ -1526,8 +1526,7 @@ pre {
 .table-bordered {
   border: 1px solid #dee2e6; }
   .table-bordered th,
-  .table-bordered td {
-    border: 1px solid #dee2e6; }
+  
   .table-bordered thead th,
   .table-bordered thead td {
     border-bottom-width: 2px; }
@@ -6703,7 +6702,7 @@ button.bg-dark:focus {
 /* Sticky Navigation */
 .sticky-nav {
     position: sticky;
-    top: 70px;
+    top: 85px;
     z-index: 2;
     background: #000;
     padding: 0;

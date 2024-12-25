@@ -54,61 +54,87 @@ class UserBookingController extends Controller
         
         return view('userside.booking', compact('tour', 'tourDate', 'step', 'bookingData'));
     }
-
     public function processPayment(Request $request)
-    {
-        try {
-            $request->validate([
-                'payment_method' => 'required|in:Credit Card,PayPal,Cash',
-            ]);
-    
-            $bookingData = $request->session()->get('booking_data');
-            if (!$bookingData) {
-                return redirect()->route('booking.page')
-                    ->with('error', 'Booking information not found. Please start over.');
-            }
-    
-            // Start transaction
-            \DB::beginTransaction();
-    
-            // Get tour date and check availability
-            $tourDate = TourDate::find($bookingData['tour_date_id']);
-            if ($tourDate->availability < $bookingData['number_of_guests']) {
-                return back()->with('error', 'Sorry, not enough spots available for this tour.');
-            }
-    
-            // Decrease availability
-            $tourDate->decrement('availability', $bookingData['number_of_guests']);
-    
-            // Create the booking
-            $booking = Booking::create([
-                'user_id' => $bookingData['user_id'],
-                'tour_id' => $bookingData['tour_id'],
-                'tour_date_id' => $bookingData['tour_date_id'],
-                'number_of_guests' => $bookingData['number_of_guests'],
-                'payment_method' => $request->payment_method,
-                'payment_date' => now(),
-                'booking_status' => 'Confirmed',
-                'check_in_date' => null,
-                'check_out_date' => null,
-            ]);
-    
-            // Commit transaction
-            \DB::commit();
-    
-            // Clear the session data
-            $request->session()->forget('booking_data');
-    
-            return redirect()->route('booking.confirmation', ['booking_id' => $booking->id])
-                ->with('success', 'Your booking has been completed successfully!');
-    
-        } catch (\Exception $e) {
-            // Rollback transaction on error
-            \DB::rollBack();
-            \Log::error('Booking error: ' . $e->getMessage());
-            return back()->with('error', 'An error occurred while processing your booking. Please try again.');
+{
+    try {
+        $request->validate([
+            'payment_method' => 'required|in:Credit Card,PayPal,Cash',
+        ]);
+
+        $bookingData = $request->session()->get('booking_data');
+        if (!$bookingData) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Booking information not found. Please start over.'
+            ], 400);
         }
+
+        // Check for existing booking
+        $existingBooking = Booking::where([
+            'user_id' => $bookingData['user_id'],
+            'tour_id' => $bookingData['tour_id'],
+            'tour_date_id' => $bookingData['tour_date_id'],
+        ])->first();
+
+        if ($existingBooking) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'You have already booked this tour.'
+            ], 400);
+        }
+
+        \DB::beginTransaction();
+
+        $tourDate = TourDate::lockForUpdate()->find($bookingData['tour_date_id']);
+        
+        if (!$tourDate) {
+            \DB::rollBack();
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Tour date not found.'
+            ], 400);
+        }
+
+        if ($tourDate->availability < 1) {
+            \DB::rollBack();
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Sorry, this tour is fully booked.'
+            ], 400);
+        }
+
+        $tourDate->decrement('availability', 1);
+
+        $booking = Booking::create([
+            'user_id' => $bookingData['user_id'],
+            'tour_id' => $bookingData['tour_id'],
+            'tour_date_id' => $bookingData['tour_date_id'],
+            'number_of_guests' => $bookingData['number_of_guests'],
+            'payment_method' => $request->payment_method,
+            'payment_date' => now(),
+            'booking_status' => 'Confirmed',
+            'check_in_date' => null,
+            'check_out_date' => null,
+        ]);
+
+        \DB::commit();
+        $request->session()->forget('booking_data');
+
+        return response()->json([
+            'status' => 'success',
+            'redirect' => route('booking.confirmation', ['booking_id' => $booking->id]),
+            'message' => 'Your booking has been completed successfully!'
+        ]);
+
+    } catch (\Exception $e) {
+        \DB::rollBack();
+        \Log::error('Booking error: ' . $e->getMessage());
+        return response()->json([
+            'status' => 'error',
+            'message' => 'An error occurred while processing your booking. Please try again.'
+        ], 500);
     }
+}
 
     public function confirmation($booking_id)
     {

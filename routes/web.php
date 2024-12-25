@@ -67,7 +67,10 @@ Route::put('user/profile/update', [UserProfileController::class, 'update'])->nam
 
 Route::put('/user/profile/password', [UserProfileController::class, 'changePassword'])->name('userside.change.password');
 
-//booking routes 
+//category routes
+
+// web.php
+Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category.show');
 
 
 

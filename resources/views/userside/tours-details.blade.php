@@ -125,7 +125,7 @@
     <div class="container">
         <div class="row justify-content-center mb-5">
             <div class="col-md-7 text-center heading-section">
-                <h2 class="mb-4" style="color: #fff; font-weight: bold">Book Your Tour</h2>
+                <h2 class="mb-4" style="color: #000; font-weight: bold">Book Your Tour</h2>
             </div>
         </div>
 
@@ -149,10 +149,10 @@
                 <tbody>
                     @foreach($tour->dates as $tourDate)
                         <tr>
-                            <td>
+                            <td data-label="Start Date">
                                 <p class="mb-3">{{ \Carbon\Carbon::parse($tourDate->start_date)->format('l, d M, Y') }}</p>
                             </td>
-                            <td>
+                            <td data-label="End Date">
                                 <p class="mb-1">{{ \Carbon\Carbon::parse($tourDate->end_date)->format('l, d M, Y') }}</p>
                             </td>
                             <td>
@@ -186,63 +186,220 @@
     </div>
 </section>
 
+<!-- Mobile View -->
+<div class="mobile-view d-md-none">
+    @foreach($tour->dates as $tourDate)
+    <div class="tour-card">
+        <div class="date-info">
+            <div class="date-label">Start Date</div>
+            <div class="date-value">{{ \Carbon\Carbon::parse($tourDate->start_date)->format('l, d M, Y') }}</div>
+            
+            <div class="date-label mt-3">End Date</div>
+            <div class="date-value">{{ \Carbon\Carbon::parse($tourDate->end_date)->format('l, d M, Y') }}</div>
+        </div>
+
+        <div class="price-info mt-3">
+            <div class="price">{{ $tour->price }} JOD</div>
+        </div>
+
+        <div class="availability-info">
+            <div class="availability">Only {{ $tourDate->availability }} places left</div>
+        </div>
+
+        @if(auth()->check())
+            @if($tourDate->availability > 0)
+                <a href="{{ route('booking.page', ['tour_id' => $tour->id, 'tour_date_id' => $tourDate->id]) }}" 
+                   class="btn btn-primary btn-book">Book Now</a>
+            @else
+                <button class="btn btn-secondary btn-book" disabled>Fully Booked</button>
+            @endif
+        @else
+            @if($tourDate->availability > 0)
+                <button class="btn btn-primary btn-book" 
+                        onclick="showLoginAlert({{ $tour->id }}, {{ $tourDate->id }})">Book Now</button>
+            @else
+                <button class="btn btn-secondary btn-book" disabled>Fully Booked</button>
+            @endif
+        @endif
+    </div>
+    @endforeach
+</div>
+
 
 
 <!-- Styles for Book Your Tour Section -->
 <style>
     #book-your-tour {
-        background: linear-gradient( #FA4032 ,#FA812F ) !important;
+        background: linear-gradient(135deg, #FA4032, #FA812F);
+        padding: 4rem 0;
     }
+
+    .heading-section h2 {
+        font-size: 3rem;
+        font-weight: 800;
+        color: #fff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        margin-bottom: 3rem;
+    }
+
     table {
-    width: 100%;
-    margin-top: 20px;
-    background-color: #fff;
-    border-collapse: collapse; /* Ensures borders collapse to one */
-}
+        width: 100%;
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
 
-th, td {
-    padding: 15px;
-    text-align: center;
-    border: none; /* Removes the borders */
-}
+    th {
+        background-color: #f8f9fa;
+        color: #2c3e50;
+        font-weight: 600;
+        text-transform: uppercase;
+        padding: 1.5rem;
+        border-bottom: 2px solid #eee;
+    }
 
-th {
-    background-color: #fff;
-    color: #000;
-}
+    td {
+        padding: 1.2rem;
+        color: #2c3e50;
+        border-bottom: 1px solid #eee;
+    }
 
-td h3 {
-    margin-bottom: 5px;
-}
+    td p {
+        margin: 0;
+    }
 
-.btn {
-    width: 100%;
-    padding: 10px;
-}
+    .price {
+        color: #FA4032;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
 
-@media (max-width: 767px) {
-        #book-your-tour .container {
-            padding: 0 15px;
+    .availability {
+        font-size: 0.95rem;
+    }
+
+    .availability span {
+        color: #FA4032;
+        font-size: 1.1rem;
+    }
+
+    .btn-primary {
+        background: linear-gradient(45deg, #FA4032, #FA812F);
+        border: none;
+        padding: 0.8rem 2rem;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(250, 64, 50, 0.3);
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        border: none;
+        padding: 0.8rem 2rem;
+        border-radius: 25px;
+        font-weight: 600;
+        opacity: 0.9;
+    }
+
+    .alert {
+        border-radius: 10px;
+        padding: 1.5rem;
+    }
+
+    @media (max-width: 767px) {
+        .heading-section h2 {
+            font-size: 2rem;
         }
 
-        .table th, .table td {
-            padding: 10px;
+        td, th {
+            padding: 1rem 0.5rem;
         }
 
         .btn {
-            padding: 12px;
-        }
-
-        /* Adjust the header font size for smaller screens */
-        .heading-section h2 {
-            font-size: 1.8rem;
-        }
-
-        /* Ensure the "Book Now" button is full width on mobile */
-        .btn-block {
-            width: 100%;
+            padding: 0.6rem 1rem;
         }
     }
+
+    /* Responsive styles for Book Your Tour section */
+@media screen and (max-width: 992px) {
+ table {
+   width: 100%;
+ }
+ 
+ th, td {
+   padding: 12px 8px;
+   font-size: 14px;
+ }
+ 
+ .btn {
+   padding: 8px 15px;
+   font-size: 14px;
+ }
+
+ .price, .availability span {
+   font-size: 14px; 
+ }
+}
+
+@media (max-width: 768px) {
+    #book-your-tour {
+        padding: 2rem 1rem;
+    }
+    
+    .tour-card {
+        background: white;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        padding: 15px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .table {
+        display: none;
+    }
+
+    .mobile-view {
+        display: block;
+    }
+
+    .date-info, .price-info, .availability-info {
+        margin-bottom: 12px;
+    }
+
+    .date-label {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .date-value {
+        color: #666;
+    }
+
+    .price {
+        color: #FA4032;
+        font-weight: 600;
+        font-size: 1.2rem;
+    }
+
+    .availability {
+        color: #333;
+    }
+
+    .btn-book {
+        width: 100%;
+        padding: 12px;
+        border-radius: 25px;
+        margin-top: 10px;
+    }
+}
+
 </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -319,8 +476,8 @@ td h3 {
         cancelButtonText: 'Cancel',
     }).then((result) => {
         if (result.isConfirmed) {
-            // Redirect to login page and pass the tour and date IDs as query parameters
-            window.location.href = "{{ route('user.login') }}?tour_id=" + tourId + "&tour_date_id=" + tourDateId;
+            // Add these IDs as query parameters
+            window.location.href = `/user/login?tour_id=${tourId}&tour_date_id=${tourDateId}`;
         }
     });
 }
