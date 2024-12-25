@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\UserSide;
 
 use App\Models\Tour;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -71,13 +72,19 @@ class UserTourController extends Controller
         return view('userside.search-results', compact('tours', 'query'));
     }
 
-    public function show($id)
-    {
-       
-        $tour = Tour::with(['images', 'category', 'itineraries'])->findOrFail($id);
-        return view('userside.tours-details', compact('tour'));
-    }
-
+   public function show($id)
+{
+    $tour = Tour::with(['images', 'category', 'itineraries'])->findOrFail($id);
+    
+    // Get similar tours from the same category, excluding the current tour
+    $similarTours = Tour::with('images')
+        ->where('category_id', $tour->category_id)
+        ->where('id', '!=', $tour->id)
+        ->take(3)  // Limit to 3 similar tours
+        ->get();
+    
+    return view('userside.tours-details', compact('tour', 'similarTours'));
+}
 
     public function showTourDetails($id) 
     {

@@ -1239,3 +1239,23 @@ h6 {
   font-size: 13px;
   color: #000;
 }
+
+.btn.btn-primary {
+  background: linear-gradient(45deg, #FA4032, #FA812F);
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease; }
+  .btn.btn-primary:hover {
+    border: 1px solid #f15d30;
+    background: transparent;
+    color: #f15d30; }
+  .btn.btn-primary.btn-outline-primary {
+    border: 1px solid #f15d30;
+    background: transparent;
+    color: #f15d30; }
+    .btn.btn-primary.btn-outline-primary:hover {
+      border: 1px solid transparent;
+      background: #f15d30;
+      color: #fff; }
