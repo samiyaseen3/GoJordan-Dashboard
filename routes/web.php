@@ -70,7 +70,8 @@ Route::put('/user/profile/password', [UserProfileController::class, 'changePassw
 //category routes
 
 // web.php
-Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category.show');
+Route::get('/tours/{categoryName}', [UserTourController::class, 'showCategoryTours'])
+    ->name('tours.category');
 
 
 
