@@ -27,6 +27,40 @@
         position: relative;
         overflow: hidden;
     }
+
+	<style>
+    .testimony-wrap {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 10px;
+        padding: 2rem !important;
+        margin: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .testimony-wrap .name {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #333;
+    }
+    
+    .testimony-wrap .position {
+        font-size: 0.9rem;
+        color: #f15d30 !important;
+    }
+    
+    .testimony-wrap .star {
+        margin-bottom: 1rem;
+    }
+    
+    .testimony-wrap .star .fa-star {
+        color: #f15d30;
+    }
+    
+    .testimony-wrap .text p {
+        font-style: italic;
+        line-height: 1.6;
+    }
+</style>
 </style>
 	<div class="hero-wrap js-fullheight">
 		<div class="overlay">
@@ -155,7 +189,7 @@
 			</div>
 		</div>
 	</section>
-	<section class="ftco-section testimony-section bg-bottom" style="background-image: url(images/bg_1.jpg);">
+	<section class="ftco-section testimony-section bg-bottom" style="background-image: url({{ asset('assets_userside/images/mini-advanture.jpg') }});">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row justify-content-center pb-4">
@@ -167,130 +201,26 @@
 			<div class="row ftco-animate">
 				<div class="col-md-12">
 					<div class="carousel-testimony owl-carousel">
-						<div class="item">
-							<div class="testimony-wrap py-4">
-								<div class="text">
-									<p class="star">
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-									</p>
-									<p class="mb-4">Far far away, behind the word mountains, far from the countries
-										Vokalia and Consonantia, there live the blind texts.</p>
-									<div class="d-flex align-items-center">
-										<div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
-										<div class="pl-3">
-											<p class="name">Roger Scott</p>
-											<span class="position">Marketing Manager</span>
+						@foreach($testimonials as $testimonial)
+							<div class="item">
+								<div class="testimony-wrap py-4">
+									<div class="text">
+										<p class="star">
+											@for($i = 1; $i <= 5; $i++)
+												<span class="fa fa-star {{ $i <= $testimonial->rating ? 'text-warning' : 'text-secondary' }}"></span>
+											@endfor
+										</p>
+										<p class="mb-4">{{ $testimonial->comment }}</p>
+										<div class="d-flex align-items-center">
+											<div class="pl-3">
+												<p class="name mb-0">{{ $testimonial->user->name }}</p>
+												<span class="position text-muted">{{ $testimonial->tour->title }}</span>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="item">
-							<div class="testimony-wrap py-4">
-								<div class="text">
-									<p class="star">
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-									</p>
-									<p class="mb-4">Far far away, behind the word mountains, far from the countries
-										Vokalia and Consonantia, there live the blind texts.</p>
-									<div class="d-flex align-items-center">
-										<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
-										<div class="pl-3">
-											<p class="name">Roger Scott</p>
-											<span class="position">Marketing Manager</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="testimony-wrap py-4">
-								<div class="text">
-									<p class="star">
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-									</p>
-									<p class="mb-4">Far far away, behind the word mountains, far from the countries
-										Vokalia and Consonantia, there live the blind texts.</p>
-									<div class="d-flex align-items-center">
-										<div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
-										<div class="pl-3">
-											<p class="name">Roger Scott</p>
-											<span class="position">Marketing Manager</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="testimony-wrap py-4">
-								<div class="text">
-									<p class="star">
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-									</p>
-									<p class="mb-4">Far far away, behind the word mountains, far from the countries
-										Vokalia and Consonantia, there live the blind texts.</p>
-									<div class="d-flex align-items-center">
-										<div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
-										<div class="pl-3">
-											<p class="name">Roger Scott</p>
-											<span class="position">Marketing Manager</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="testimony-wrap py-4">
-								<div class="text">
-									<p class="star">
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-									</p>
-									<p class="mb-4">Far far away, behind the word mountains, far from the countries
-										Vokalia and Consonantia, there live the blind texts.</p>
-									<div class="d-flex align-items-center">
-										<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
-										<div class="pl-3">
-											<p class="name">Roger Scott</p>
-											<span class="position">Marketing Manager</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<section class="ftco-intro ftco-section ftco-no-pt">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-12 text-center">
-					<div class="img" style="background-image: url('{{ asset('assets_userside/images/bg_2.jpg') }}');">
-						<div class="overlay"></div>
-						<h2>We Are Pacific A Travel Agency</h2>
-						<p>We can manage your dream building A small river named Duden flows by their place</p>
-						<p class="mb-0"><a href="#" class="btn btn-primary px-4 py-3">Ask For A Quote</a></p>
+						@endforeach
 					</div>
 				</div>
 			</div>

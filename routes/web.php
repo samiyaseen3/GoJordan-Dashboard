@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\AdminReviewController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\AIChatController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
@@ -13,11 +16,14 @@ use App\Http\Controllers\TourDateController;
 use App\Http\Controllers\UserSide\HomeController;
 use App\Http\Controllers\UserSide\PageController;
 use App\Http\Controllers\Auth\UserLoginController;
+use App\Http\Controllers\UserSide\ReviewController;
 use App\Http\Controllers\UserSide\UserTourController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\LandmarkRecognitionController;
 use App\Http\Controllers\UserSide\UserBookingController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\UserSide\UserProfileController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\UserSide\ContactController;
 
 /*
 |---------------------------------------------------------------------------
@@ -76,6 +82,15 @@ Route::get('/tours/{categoryName}', [UserTourController::class, 'showCategoryTou
 
 
 
+
+
+//Review routes 
+
+Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store')->middleware('auth');
+   
+//contact route 
+
+Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.store');
 // User Dashboard (authenticated users only)
 Route::middleware(['auth', 'role:user'])->group(function () {
 
@@ -147,7 +162,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Booking management routes
     Route::get('/bookings', [BookingController::class, 'index'])->name('booking.index');
     Route::patch('/booking/{id}/status', [BookingController::class, 'updateStatus'])->name('booking.updateStatus');
+
+    //Reviews Routes 
+
+    Route::get('/reviews', [AdminReviewController::class, 'index'])->name('reviews.index');
+    Route::patch('/review/{id}/status', [AdminReviewController::class, 'updateApprovalStatus'])->name('review.status.update');
+    Route::delete('/review/{id}', [AdminReviewController::class, 'destroy'])->name('review.destroy');
 });
+
+
 
 // General Dashboard Route (requires authentication)
 Route::get('/dashboard', function () {

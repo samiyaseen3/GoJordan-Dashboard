@@ -399,8 +399,8 @@
                     <tr>
                         <th>View Tour</th>
                         <th>Tour</th>
-                        <th>Check Out</th>
                         <th>Guests</th>
+                        <th>Total Price</th>
                         <th>Status</th>
                         <th>Payment</th>
                     </tr>
@@ -410,8 +410,8 @@
                         <tr>
                             <td><a href="{{ route('tour.details', ['id' => $booking->tour->id]) }}" class="btn btn-primary">View</a></td>
                             <td>{{ $booking->tour->title }}</td>
-                            <td>{{ \Carbon\Carbon::parse($booking->check_out_date)->format('M d, Y') }}</td>
                             <td>{{ $booking->number_of_guests }} guests</td>
+                            <td>{{ $booking->tour ? $booking->tour->price * $booking->number_of_guests : '0.00' }} JOD</td>
                             <td>
                                 <span class="badge rounded-pill 
                                     @if($booking->booking_status == 'completed') bg-success

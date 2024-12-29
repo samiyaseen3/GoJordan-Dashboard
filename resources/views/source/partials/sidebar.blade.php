@@ -40,6 +40,11 @@
           <i class="bi bi-calendar-check"></i><span>Booking</span>
         </a>
       </li><!-- End Charts Nav -->
+      <li class="nav-item active">
+        <a class="nav-link collapsed"  href="{{route('reviews.index')}}">
+          <i class="bi bi-chat-square-text"></i><span>Review</span>
+        </a>
+      </li><!-- End Charts Nav -->
 
 
     </ul>

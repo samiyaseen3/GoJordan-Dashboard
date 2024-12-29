@@ -19,5 +19,7 @@
 {{-- footer --}}
  @include('userside.source.partials.footer')
 
+ @include('userside.source.partials.chat')
+
 </body>
 </html>

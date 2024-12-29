@@ -125,64 +125,164 @@
     <div class="container">
         <div class="row justify-content-center mb-5">
             <div class="col-md-7 text-center heading-section">
-                <h2 class="mb-4" style="color: #000; font-weight: bold">Book Your Tour</h2>
+                <h2 class="mb-4" style="color: #000; font-weight: bold">Tour Information</h2>
+                
+                <!-- Toggle Buttons -->
+                <div class="toggle-buttons mb-4">
+                    <button class="btn btn-toggle active" data-target="booking-content">
+                        <i class="fas fa-calendar-alt mr-2"></i>Book Tour
+                    </button>
+                    <button class="btn btn-toggle" data-target="reviews-content">
+                        <i class="fas fa-star mr-2"></i>Reviews
+                    </button>
+                </div>
             </div>
         </div>
 
-        @if($tour->dates->isEmpty()) 
-            <!-- Display this message if there are no dates available for the tour -->
-            <div class="alert alert-warning text-center" role="alert">
-                There is no booking for this tour.
-            </div>
-        @else
-            <!-- Display the table of dates if there are dates available -->
-            <table class="table table-bordered text-center">
-                <thead>
-                    <tr>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Price</th>
-                        <th>Availability</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($tour->dates as $tourDate)
+        <!-- Booking Content -->
+        <div id="booking-content" class="toggle-content active">
+            @if($tour->dates->isEmpty()) 
+                <div class="alert alert-warning text-center" role="alert">
+                    There is no booking for this tour.
+                </div>
+            @else
+                <table class="table table-bordered text-center">
+                    <thead>
                         <tr>
-                            <td data-label="Start Date">
-                                <p class="mb-3">{{ \Carbon\Carbon::parse($tourDate->start_date)->format('l, d M, Y') }}</p>
-                            </td>
-                            <td data-label="End Date">
-                                <p class="mb-1">{{ \Carbon\Carbon::parse($tourDate->end_date)->format('l, d M, Y') }}</p>
-                            </td>
-                            <td>
-                                <p class="price mb-1">{{ $tour->price }} JOD</p>
-                            </td>
-                            <td>
-                                <p class="availability mb-3">Only <span style="font-weight: bold">{{ $tourDate->availability }}</span> places left</p>
-                            </td>
-                            <td>
-                                @if(auth()->check())
-                                    @if($tourDate->availability > 0)
-                                        <a href="{{ route('booking.page', ['tour_id' => $tour->id, 'tour_date_id' => $tourDate->id]) }}" 
-                                           class="btn btn-primary btn-block">Book Now</a>
-                                    @else
-                                        <button class="btn btn-secondary btn-block" disabled>Fully Booked</button>
-                                    @endif
-                                @else
-                                    @if($tourDate->availability > 0)
-                                        <button class="btn btn-primary btn-block" 
-                                                onclick="showLoginAlert({{ $tour->id }}, {{ $tourDate->id }})">Book Now</button>
-                                    @else
-                                        <button class="btn btn-secondary btn-block" disabled>Fully Booked</button>
-                                    @endif
-                                @endif
-                            </td>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Price</th>
+                            <th>Availability</th>
+                            <th>Action</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @endif
+                    </thead>
+                    <tbody>
+                        @foreach($tour->dates as $tourDate)
+                            <tr>
+                                <td data-label="Start Date">
+                                    <p class="mb-3">{{ \Carbon\Carbon::parse($tourDate->start_date)->format('l, d M, Y') }}</p>
+                                </td>
+                                <td data-label="End Date">
+                                    <p class="mb-1">{{ \Carbon\Carbon::parse($tourDate->end_date)->format('l, d M, Y') }}</p>
+                                </td>
+                                <td>
+                                    <p class="price mb-1">{{ $tour->price }} JOD</p>
+                                </td>
+                                <td>
+                                    <p class="availability mb-3">Only <span style="font-weight: bold">{{ $tourDate->availability }}</span> places left</p>
+                                </td>
+                                <td>
+                                    @if(auth()->check())
+                                        @if($tourDate->availability > 0)
+                                            <a href="{{ route('booking.page', ['tour_id' => $tour->id, 'tour_date_id' => $tourDate->id]) }}" 
+                                               class="btn btn-primary btn-block">Book Now</a>
+                                        @else
+                                            <button class="btn btn-secondary btn-block" disabled>Fully Booked</button>
+                                        @endif
+                                    @else
+                                        @if($tourDate->availability > 0)
+                                            <button class="btn btn-primary btn-block" 
+                                                    onclick="showLoginAlert({{ $tour->id }}, {{ $tourDate->id }})">Book Now</button>
+                                        @else
+                                            <button class="btn btn-secondary btn-block" disabled>Fully Booked</button>
+                                        @endif
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
+        </div>
+
+        <!-- Reviews Content -->
+        <div id="reviews-content" class="toggle-content">
+            @if($tour->reviews->count() > 0)
+                <div class="row">
+                    <!-- Reviews Summary -->
+                    <div class="col-md-4 mb-4">
+                        <div class="reviews-summary bg-white p-4 rounded shadow-sm">
+                            <h4 class="mb-3">Reviews Overview</h4>
+                            @php
+                                $avgRating = $tour->reviews->avg('rating');
+                                $totalReviews = $tour->reviews->count();
+                            @endphp
+                            <div class="average-rating mb-3">
+                                <div class="display-4 text-warning">{{ number_format($avgRating, 1) }}</div>
+                                <div class="stars mb-2">
+                                    @for($i = 1; $i <= 5; $i++)
+                                        <i class="fas fa-star {{ $i <= round($avgRating) ? 'text-warning' : 'text-muted' }}"></i>
+                                    @endfor
+                                </div>
+                                <div class="text-muted">{{ $totalReviews }} {{ Str::plural('review', $totalReviews) }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reviews List -->
+                    <div class="col-md-8">
+                        <div class="reviews-list">
+                            @foreach($tour->reviews as $review)
+                                <div class="review-card bg-white p-4 rounded shadow-sm mb-3">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h5 class="mb-1">{{ $review->user->name }}</h5>
+                                            <div class="stars mb-2">
+                                                @for($i = 1; $i <= 5; $i++)
+                                                    <i class="fas fa-star {{ $i <= $review->rating ? 'text-warning' : 'text-muted' }}"></i>
+                                                @endfor
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">{{ $review->created_at->diffForHumans() }}</small>
+                                    </div>
+                                    <p class="mb-0">{{ $review->comment }}</p>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div class="text-center py-5">
+                    <h4>No reviews yet</h4>
+                    <p>Be the first to review this tour!</p>
+                </div>
+            @endif
+
+            <!-- Review Form -->
+            @auth
+                <div class="review-form mt-4 bg-white p-4 rounded shadow-sm">
+                    <h4>Write a Review</h4>
+                    <form id="reviewForm" action="{{ route('reviews.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="tour_id" value="{{ $tour->id }}">
+                        
+                        <div class="form-group">
+                            <label>Rating</label>
+                            <div class="rating-input mb-3">
+                                @for($i = 5; $i >= 1; $i--)
+                                    <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}" required>
+                                    <label for="star{{ $i }}" title="{{ $i }} stars">
+                                        <i class="fas fa-star"></i>
+                                    </label>
+                                @endfor
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="comment">Your Review</label>
+                            <textarea class="form-control" name="comment" rows="4" required 
+                                      placeholder="Share your experience with this tour"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                    </form>
+                </div>
+            @else
+                <div class="alert alert-info mt-4">
+                    Please <a href="{{ route('user.login') }}">login</a> to write a review.
+                </div>
+            @endauth
+        </div>
     </div>
 </section>
 
@@ -475,6 +575,99 @@
     }
 }
 
+.toggle-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.btn-toggle {
+    padding: 0.75rem 2rem;
+    border: 2px solid #FA4032;
+    background: transparent;
+    color: #FA4032;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-toggle.active {
+    background: linear-gradient(45deg, #FA4032, #FA812F);
+    color: white;
+    border-color: transparent;
+}
+
+.btn-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(250, 64, 50, 0.2);
+}
+
+.toggle-content {
+    display: none;
+}
+
+.toggle-content.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+.rating-input {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.rating-input input {
+    display: none;
+}
+
+.rating-input label {
+    cursor: pointer;
+    width: 25px;
+    font-size: 25px;
+    color: #ddd;
+    margin: 0 2px;
+}
+
+.rating-input label:before {
+    content: '\f005';
+    font-family: 'Font Awesome 5 Free';
+}
+
+.rating-input input:checked ~ label,
+.rating-input label:hover,
+.rating-input label:hover ~ label {
+    color: #ffd700;
+}
+
+.stars {
+    color: #ffd700;
+}
+
+.review-card {
+    transition: transform 0.2s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    .toggle-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .btn-toggle {
+        width: 100%;
+    }
+}
+
 </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -582,6 +775,109 @@
             });
         });
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const toggleButtons = document.querySelectorAll('.btn-toggle');
+    const contents = document.querySelectorAll('.toggle-content');
+
+    toggleButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons and contents
+            toggleButtons.forEach(btn => btn.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Add active class to clicked button and corresponding content
+            this.classList.add('active');
+            const targetContent = document.getElementById(this.dataset.target);
+            targetContent.classList.add('active');
+        });
+    });
+});
+
+$(document).ready(function() {
+    // Add click event listener to the submit button
+    $('.review-form button[type="submit"]').on('click', function(e) {
+        e.preventDefault();
+        
+        // Check if rating is selected
+        let rating = $('input[name="rating"]:checked').val();
+        
+        if (!rating) {
+            Swal.fire({
+                title: 'Rating Required',
+                text: 'Please select a rating before submitting your review',
+                icon: 'warning',
+                confirmButtonColor: '#FA4032',
+                confirmButtonText: 'OK'
+            });
+            return false;
+        }
+        
+        // If rating exists, submit the form
+        $('#reviewForm').submit();
+    });
+
+    // Handle the actual form submission
+    $('#reviewForm').on('submit', function(e) {
+        e.preventDefault();
+        
+        let form = $(this);
+        let url = form.attr('action');
+        let formData = form.serialize();
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: formData,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                if (response.success) {
+                    Swal.fire({
+                        title: 'Review Submitted!',
+                        text: 'Your review has been submitted and is pending admin approval. It will be visible once approved.',
+                        icon: 'success',
+                        confirmButtonColor: '#FA4032',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        // Clear the form
+                        form.trigger('reset');
+                        // Optionally reload the reviews section
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: response.message || 'Something went wrong while submitting your review.',
+                        icon: 'error',
+                        confirmButtonColor: '#FA4032',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            },
+            error: function(xhr) {
+                let errorMessage = 'Something went wrong while submitting your review.';
+                
+                // Check if there's a specific error message from the server
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errorMessage = xhr.responseJSON.message;
+                } else if (xhr.responseJSON && xhr.responseJSON.errors) {
+                    // Handle validation errors
+                    errorMessage = Object.values(xhr.responseJSON.errors)[0][0];
+                }
+                
+                Swal.fire({
+                    title: 'Error!',
+                    text: errorMessage,
+                    icon: 'error',
+                    confirmButtonColor: '#FA4032',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    });
+});
     </script>
 
 </body>

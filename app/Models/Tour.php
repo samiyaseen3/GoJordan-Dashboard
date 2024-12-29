@@ -42,4 +42,9 @@ class Tour extends Model
     {
         return $this->hasMany(TourDate::class); // One tour has many tour dates
     }
+
+    public function reviews()
+{
+    return $this->hasMany(Review::class)->where('is_approved', true);
+}
 }

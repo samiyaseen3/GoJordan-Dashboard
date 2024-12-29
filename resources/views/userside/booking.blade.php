@@ -3,173 +3,371 @@
 @section('content')
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 
 <style>
-    .ftco-navbar-light {
-        background: #fff !important;
+    /* Navbar override */
+.ftco-navbar-light {
+    background: #fff !important;
+}
+
+.ftco-navbar-light .navbar-brand {
+    color: #000;
+}
+
+.ftco-navbar-light .navbar-nav>.nav-item>.nav-link {
+    color: #000;
+}
+
+/* Base container styles */
+.booking-container {
+    padding: 60px 0;
+    background: #f8f9fa;
+}
+
+.row {
+    margin-top: 40px;
+}
+
+/* Steps indicator styles */
+.steps-indicator {
+    position: relative;
+    padding: 20px 0;
+    margin-bottom: 40px;
+}
+
+.steps-line {
+    position: absolute;
+    top: 35px;
+    left: 50px;
+    right: 50px;
+    height: 3px;
+    background: #e6e6e6;
+    z-index: 1;
+}
+
+.steps-progress {
+    position: absolute;
+    top: 35px;
+    left: 50px;
+    height: 3px;
+    background: #f15d30;
+    transition: width 0.3s ease;
+    z-index: 2;
+}
+
+.steps-progress[data-step="1"] {
+    width: 0;
+}
+
+.steps-progress[data-step="2"] {
+    width: calc(100% - 100px);
+}
+
+.steps-wrapper {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 3;
+    padding: 0 50px;
+}
+
+.step {
+    text-align: center;
+    position: relative;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border: 3px solid #e6e6e6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    font-weight: bold;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.step.active .step-number {
+    border-color: #f15d30;
+    background: #f15d30;
+    color: #fff;
+}
+
+.step.completed .step-number {
+    border-color: #f15d30;
+    background: #f15d30;
+    color: #fff;
+}
+
+/* Booking form styles */
+.booking-form {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.booking-form h2 {
+    color: #2d3436;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+/* Guest select styles */
+.guest-select {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.guest-select select {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    appearance: none;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.guest-select select:focus {
+    border-color: #f15d30;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(241,93,48,0.1);
+}
+
+/* Tour summary styles */
+.tour-summary {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    padding: 30px;
+}
+
+.summary-section {
+    margin-bottom: 25px;
+}
+
+.summary-label {
+    color: #6c757d;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.summary-value {
+    color: #2d3436;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.total-section {
+    border-top: 2px solid #f8f9fa;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.total-price {
+    color: #f15d30;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* Payment methods styles */
+.payment-methods {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.payment-method {
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.payment-method:hover {
+    border-color: #f15d30;
+}
+
+.payment-method.selected {
+    border-color: #f15d30;
+    background: rgba(241,93,48,0.05);
+}
+
+.payment-method img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+/* Payment form styles */
+.payment-form {
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    background: #f8f9fa;
+}
+
+.payment-form.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #2d3436;
+    font-weight: 500;
+}
+
+.card-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.card-input:focus {
+    border-color: #f15d30;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(241,93,48,0.1);
+}
+
+.card-row {
+    display: flex;
+    gap: 15px;
+}
+
+.card-expiry {
+    width: 100px;
+}
+
+.card-cvv {
+    width: 80px;
+}
+
+/* Invalid feedback */
+.invalid-feedback {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+    display: none;
+}
+
+/* Button styles */
+.buttons-wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    gap: 15px;
+}
+
+.btn-back {
+    background: #fff;
+    color: #f15d30;
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: 2px solid #f15d30;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.btn-back:hover {
+    background: #fff5f2;
+    text-decoration: none;
+    color: #f15d30;
+}
+
+.btn-next {
+    background: #f15d30;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-next:hover {
+    background: #e44d20;
+}
+
+/* Notice boxes */
+.sandbox-notice {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.test-cards {
+    background-color: #e8f4fd;
+    border: 1px solid #b8daff;
+    color: #004085;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+/* Alert styles */
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .tour-summary {
+        margin-top: 30px;
     }
-
-    .ftco-navbar-light .navbar-brand {
-        color: #000;
-    }
-
-    .ftco-navbar-light .navbar-nav>.nav-item>.nav-link {
-        color: #000;
-    }
-
-    .row {
-        margin-top: 80px;
-    }
-
-    .steps-progress {
-        position: absolute;
-        top: 25px;
-        left: 50px;
-        height: 3px;
-        background: #f15d30;
-        transition: width 0.3s ease;
-        z-index: 2;
-
-        width: {
-                {
-                $step ===2 ? '100%': '25%'
-            }
-        }
-
-        ;
-    }
-
-    .payment-method {
-        cursor: pointer;
-        padding: 15px;
-        border: 1px solid #ddd;
-        margin: 10px 0;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .payment-method.selected {
-        border-color: #f15d30;
-        background-color: rgba(241, 93, 48, 0.1);
-    }
-
-    .payment-method img {
-        width: 40px;
-        height: 40px;
-        object-fit: contain;
-    }
-
-    .payment-form {
-        display: none;
-        margin-top: 20px;
-        padding: 15px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        background: #f9f9f9;
-    }
-
-    .payment-form.active {
-        display: block;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    .form-group label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: 500;
-    }
-
-    .card-input {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        font-size: 16px;
-    }
-
-    .card-row {
-        display: flex;
-        gap: 15px;
-    }
-
-    .card-expiry {
-        width: 70px;
-    }
-
-    .card-cvv {
-        width: 60px;
-    }
-
-    .sandbox-notice {
-        background-color: #fff3cd;
-        border: 1px solid #ffeeba;
-        color: #856404;
-        padding: 10px;
-        margin-bottom: 15px;
-        border-radius: 4px;
-        font-size: 14px;
-    }
-
-    .test-cards {
-        background-color: #e8f4fd;
-        border: 1px solid #b8daff;
-        color: #004085;
-        padding: 10px;
-        margin-top: 10px;
-        border-radius: 4px;
-        font-size: 13px;
-    }
-
-    .btn-next {
-        background: #f15d30;
-        color: white;
-        padding: 12px 25px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: 500;
-        transition: background 0.3s;
-    }
-
-    .btn-next:hover {
-        background: #d64a20;
-    }
-
-    .btn-back {
-        background: #6c757d;
-        color: white;
-        padding: 12px 25px;
-        border: none;
-        border-radius: 5px;
-        text-decoration: none;
-        display: inline-block;
-        margin-right: 10px;
-    }
-
-    .btn-back:hover {
-        background: #5a6268;
-        color: white;
-        text-decoration: none;
-    }
-
+    
     .buttons-wrapper {
-        margin-top: 20px;
-        display: flex;
-        align-items: center;
+        flex-direction: column;
+        gap: 10px;
     }
-
-    .invalid-feedback {
-        color: #dc3545;
-        font-size: 14px;
-        margin-top: 5px;
-        display: none;
+    
+    .btn-back, .btn-next {
+        width: 100%;
+        justify-content: center;
     }
+}
 </style>
 
 <div class="booking-container">
@@ -181,7 +379,7 @@
                     <!-- Step Indicators --> 
                     <div class="steps-indicator">
                         <div class="steps-line"></div>
-                        <div class="steps-progress"></div>
+                        <div class="steps-progress" data-step="{{$step}}"></div>
                         <div class="steps-wrapper">
                             <div class="step {{ $step === 1 ? 'active' : ($step === 2 ? 'completed' : '') }}">
                                 <div class="step-number">1</div>

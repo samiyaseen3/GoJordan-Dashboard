@@ -95,7 +95,7 @@
 <script src="{{asset('assets_userside/js/jquery.animateNumber.min.js')}}"></script>
 <script src="{{asset('assets_userside/js/bootstrap-datepicker.js')}}"></script>
 <script src="{{asset('assets_userside/js/scrollax.min.js')}}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+{{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClGc5dWTXf10vmSHJTySDkAPBkEW6VQAQ"></script> --}}
 <script src="{{asset('assets_userside/js/google-map.js')}}"></script>
 <script src="{{asset('assets_userside/js/main.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
