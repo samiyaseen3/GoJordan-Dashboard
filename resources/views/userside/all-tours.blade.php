@@ -33,7 +33,7 @@
 
 <section class="hero-wrap hero-wrap-2 js-fullheight bg-cover bg-center bg-fixed" 
     style="
-        background-image: url('{{ asset('assets_userside/images/Advanture.jpg') }}');
+        background-image: url('{{ asset('assets_userside/images/services-3.jpg') }}');
         background-size: cover; /* Stretch image to fill entire container */
         background-position: center; /* Center the image */
         background-repeat: no-repeat; /* Avoid image repetition */
@@ -111,26 +111,6 @@
     </div>
 </section>
 
-
-
-
-
-
-
-<section class="ftco-intro ftco-section ftco-no-pt">
- <div class="container">
-    <div class="row justify-content-center">
-       <div class="col-md-12 text-center">
-          <div class="img"  style="background-image: url(images/bg_2.jpg);">
-             <div class="overlay"></div>
-             <h2>We Are Pacific A Travel Agency</h2>
-             <p>We can manage your dream building A small river named Duden flows by their place</p>
-             <p class="mb-0"><a href="#" class="btn btn-primary px-4 py-3">Ask For A Quote</a></p>
-         </div>
-     </div>
- </div>
-</div>
-</section>
 
 @push('scripts')
 <script>

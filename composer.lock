@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "32d615f4356995472b5c4c6339a5a794",
+    "content-hash": "bdde5273c545e37915cc42782867e6fa",
     "packages": [
         {
             "name": "brick/math",
@@ -3439,6 +3439,77 @@
                 }
             ],
             "time": "2024-07-20T21:41:07+00:00"
+        },
+        {
+            "name": "propaganistas/laravel-phone",
+            "version": "5.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Propaganistas/Laravel-Phone.git",
+                "reference": "2172362ae5714ddc397d9df96a44b82bd125631a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Propaganistas/Laravel-Phone/zipball/2172362ae5714ddc397d9df96a44b82bd125631a",
+                "reference": "2172362ae5714ddc397d9df96a44b82bd125631a",
+                "shasum": ""
+            },
+            "require": {
+                "giggsey/libphonenumber-for-php-lite": "^8.13.35",
+                "illuminate/contracts": "^10.0|^11.0",
+                "illuminate/support": "^10.0|^11.0",
+                "illuminate/validation": "^10.0|^11.0",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.14",
+                "orchestra/testbench": "*",
+                "phpunit/phpunit": "^10.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Propaganistas\\LaravelPhone\\PhoneServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Propaganistas\\LaravelPhone\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Propaganistas",
+                    "email": "Propaganistas@users.noreply.github.com"
+                }
+            ],
+            "description": "Adds phone number functionality to Laravel based on Google's libphonenumber API.",
+            "keywords": [
+                "laravel",
+                "libphonenumber",
+                "phone",
+                "validation"
+            ],
+            "support": {
+                "issues": "https://github.com/Propaganistas/Laravel-Phone/issues",
+                "source": "https://github.com/Propaganistas/Laravel-Phone/tree/5.3.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/Propaganistas",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-12-27T11:45:47+00:00"
         },
         {
             "name": "psr/cache",

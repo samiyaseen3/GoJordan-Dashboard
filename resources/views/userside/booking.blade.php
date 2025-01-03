@@ -147,9 +147,10 @@
 /* Tour summary styles */
 .tour-summary {
     background: white;
-    border-radius: 16px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-    padding: 30px;
+    border-radius: 24px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    padding: 32px;
+    margin-top:20px;
 }
 
 .summary-section {
@@ -157,27 +158,30 @@
 }
 
 .summary-label {
+    font-size: 14px;
+    font-weight: 500;
     color: #6c757d;
-    font-size: 13px;
     margin-bottom: 8px;
 }
 
 .summary-value {
+    font-size: 20px;
+    font-weight: 700;
     color: #2d3436;
-    font-size: 18px;
-    font-weight: 600;
 }
 
 .total-section {
+    margin-top: 32px;
+    padding-top: 24px;
     border-top: 2px solid #f8f9fa;
-    padding-top: 20px;
-    margin-top: 20px;
 }
 
 .total-price {
-    color: #f15d30;
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 32px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #f15d30 0%, #ff7e54 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 /* Payment methods styles */

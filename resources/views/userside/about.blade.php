@@ -22,7 +22,7 @@
     margin-top: -40px}
 </style>
 
-<section class="hero-wrap hero-wrap-2 js-fullheight bg-cover bg-center bg-fixed" style="background-image: url('{{ asset('assets_userside/images/about-us.jpg') }}');">
+<section class="hero-wrap hero-wrap-2 js-fullheight bg-cover bg-center bg-fixed" style="background-image: url('{{ asset('assets_userside/images/about_us.jpg') }}');">
   <div class="overlay"></div>
   <div class="container">
     <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">

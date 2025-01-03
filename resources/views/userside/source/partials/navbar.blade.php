@@ -5,12 +5,10 @@
     <title>Home</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <link rel="stylesheet" href="{{asset('assets_userside/css/animate.css')}}">
     <link rel="stylesheet" href="{{asset('assets_userside/css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets_userside/css/owl.theme.default.min.css')}}">
@@ -19,6 +17,8 @@
     <link rel="stylesheet" href="{{asset('assets_userside/css/jquery.timepicker.css')}}">
     <link rel="stylesheet" href="{{asset('/assets_userside/css/flaticon.css')}}">
     <link rel="stylesheet" href="{{asset('assets_userside/css/style.css')}}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+   
     
     <style>
           @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
@@ -106,7 +106,7 @@
                                 </a>
                                 @endforeach
                                 <a class="dropdown-item d-flex align-items-center" href="{{ route('tours.all-adventure') }}" style="color: #ffffff;">
-                                    <img src="{{ asset('assets_userside/images/advanture.jpg') }}" alt="All Adventures" class="dropdown-img">
+                                    <img src="{{ asset('assets_userside/images/services-3.jpg') }}" alt="All Adventures" class="dropdown-img">
                                     <span>Show All</span>
                                 </a>
                             </div>
@@ -182,16 +182,36 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-       $(document).ready(function () {
-  $("#search-icon").click(function (e) {
-    e.preventDefault();
-    $("#search-form-container").fadeToggle();
-  });
-});
-$("#close-btn").click(function () {
-        $("#search-form-container").fadeOut();
-    });
-    </script>
+        $(document).ready(function () {
+            // Search functionality
+            $("#search-icon").click(function (e) {
+                e.preventDefault();
+                $("#search-form-container").fadeToggle();
+            });
+        
+            $("#close-btn").click(function () {
+                $("#search-form-container").fadeOut();
+            });
+        
+            // Add click event to all nav-links
+            $('.nav-link').click(function(){
+                $('.navbar-collapse').collapse('hide');
+            });
+        
+            // Add click event to the document
+            $(document).click(function(e) {
+                // if the target of the click isn't the navbar, navbar menu or descendents of either
+                if (!$(e.target).closest('.navbar').length) {
+                    $('.navbar-collapse').collapse('hide');
+                }
+            });
+        
+            // Prevent clicks inside navbar from closing it
+            $('.navbar-collapse').click(function(e) {
+                e.stopPropagation();
+            });
+        });
+        </script>
 </body>
 
 

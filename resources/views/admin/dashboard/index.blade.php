@@ -4,8 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Dashboard - NiceAdmin Bootstrap Template</title>
+  <link rel="icon" type="image/x-icon" href="{{ asset('assets_userside/images/logo.png') }}">
+<link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets_userside/images/logo.png') }}">
+  <title>GoJordan</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 </head>

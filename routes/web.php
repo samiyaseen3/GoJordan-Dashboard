@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminContactController as AdminAdminContactController;
+use App\Http\Controllers\AdminContactController;
 use App\Http\Controllers\AdminReviewController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
@@ -31,13 +33,12 @@ use App\Http\Controllers\UserSide\ContactController;
 |---------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 // User Registration Routes
 Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('register', [RegisteredUserController::class, 'store']);
+
+
 
 // User Login Routes
 Route::get('/user/login', [UserLoginController::class, 'showLoginForm'])->name('user.login');
@@ -66,7 +67,7 @@ Route::get('/tours/mini-adventure', [UserTourController::class, 'showMiniAdventu
 Route::get('/tours/day-adventure', [UserTourController::class, 'showDayAdventureTours'])->name('tours.day-adventure');
 Route::get('/tours/all-adventure', [UserTourController::class, 'showAllAdventureTours'])->name('tours.all-adventure');
 Route::get('/tour-details/{id}', [UserTourController::class, 'show'])->name('tour.details');
-Route::get('/user_index', [HomeController::class, 'index'])->name('userside.index');
+Route::get('/', [HomeController::class, 'index'])->name('userside.index');
 Route::get('user/profile', [UserProfileController::class, 'index'])->name('userside.profile');
 Route::put('user/profile/update', [UserProfileController::class, 'update'])->name('userside.update.profile');
 
@@ -87,7 +88,7 @@ Route::get('/tours/{categoryName}', [UserTourController::class, 'showCategoryTou
 //Review routes 
 
 Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store')->middleware('auth');
-   
+
 //contact route 
 
 Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.store');
@@ -168,6 +169,20 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/reviews', [AdminReviewController::class, 'index'])->name('reviews.index');
     Route::patch('/review/{id}/status', [AdminReviewController::class, 'updateApprovalStatus'])->name('review.status.update');
     Route::delete('/review/{id}', [AdminReviewController::class, 'destroy'])->name('review.destroy');
+
+    //contact-us routes 
+
+    Route::get('messages/unread-count', [AdminContactController::class, 'getUnreadCount'])
+    ->name('admin.messages.unread-count');
+
+Route::get('messages', [AdminContactController::class, 'index'])
+    ->name('admin.messages.index');
+Route::get('messages/{message}', [AdminContactController::class, 'show'])
+    ->name('admin.messages.show');
+Route::post('messages/{message}/mark-as-read', [AdminContactController::class, 'markAsRead'])
+    ->name('admin.messages.mark-as-read');
+Route::delete('messages/{message}', [AdminContactController::class, 'destroy'])
+    ->name('admin.messages.destroy');
 });
 
 

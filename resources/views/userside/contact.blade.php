@@ -1,12 +1,18 @@
 <!-- resources/views/userside/contact.blade.php -->
 @extends('userside.source.template')
 @section('content')
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('{{ asset('assets_userside/images/bg_1.jpg') }}');">
-    <div class="overlay"></div>
+<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('{{ asset('assets_userside/images/contact_us.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <div class="overlay" style="background: rgba(0, 0, 0, 0.5);"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
             <div class="col-md-9 ftco-animate pb-5 text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="{{route('userside.index')}}">Home <i class="fa fa-chevron-right"></i></a></span> <span>Contact us <i class="fa fa-chevron-right"></i></span></p>
+                <p class="breadcrumbs">
+                    <span class="mr-2">
+                        <a href="{{ route('userside.index') }}">Home</a>
+                        <i class="fa fa-chevron-right"></i>
+                    </span> 
+                    <span>Contact us <i class="fa fa-chevron-right"></i></span>
+                </p>
                 <h1 class="mb-0 bread">Contact us</h1>
             </div>
         </div>

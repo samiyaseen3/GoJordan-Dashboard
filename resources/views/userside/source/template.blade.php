@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets_userside/images/logo.png') }}">
+<link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets_userside/images/logo.png') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
     <title>GoJordan</title>
 </head>
 <body>
@@ -19,7 +22,7 @@
 {{-- footer --}}
  @include('userside.source.partials.footer')
 
- @include('userside.source.partials.chat')
+
 
 </body>
 </html>

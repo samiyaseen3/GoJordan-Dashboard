@@ -13,7 +13,7 @@ class HomeController extends Controller
     {
         if (auth()->check() && auth()->user()->role == 'admin') {
             auth()->logout();
-            return redirect()->route('admin.login')->with('message', 'You have been logged out because you tried to access the user homepage.');
+            return redirect()->route('userside.index')->with('message', 'You have been logged out because you tried to access the user homepage.');
         }
     
         // Get popular tours

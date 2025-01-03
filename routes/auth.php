@@ -19,7 +19,7 @@ Route::middleware('guest')->group(function () {
     Route::post('register', [RegisteredUserController::class, 'store']);
 
     Route::get('/user/login', [UserLoginController::class, 'showLoginForm'])->name('user.login');
-Route::post('/user/login', [UserLoginController::class, 'login'])->name('user.login.submit');
+    Route::post('/user/login', [UserLoginController::class, 'login'])->name('user.login.submit');
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->name('password.request');
